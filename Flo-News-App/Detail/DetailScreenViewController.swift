@@ -49,6 +49,7 @@ class DetailScreenViewController: UIViewController {
         
         
         if isFav {
+            
             let appDelegate = UIApplication.shared.delegate as! AppDelegate
             let context = appDelegate.persistentContainer.viewContext
             let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteList")
@@ -90,6 +91,7 @@ class DetailScreenViewController: UIViewController {
                 try context.save()
                 isFav = true
                 changeFavButton()
+                print(news)
                 print("SUCCESS")
             }catch {
                 print("ERROR")

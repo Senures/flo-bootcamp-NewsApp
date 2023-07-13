@@ -28,27 +28,64 @@ class FavoriteScreenViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
-    
-    
-    
+    override func viewWillAppear(_ animated: Bool) {
+   
+    }
     override func viewDidAppear(_ animated: Bool) {
-        
-        
-        print("=================  VIEW DID APPEAR")
-        favoriteList.removeAll()
-        objectList.removeAll()
-        
+        super.viewDidAppear(animated)
+        print("favori listesi uzunlugu : \(favoriteList.count)")
+        print("object listesi uzunlugu : \(objectList.count)")
+        // CoreData'dan verileri çekme
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteList")
         fetchRequest.returnsObjectsAsFaults = false
         do {
             let results = try context.fetch(fetchRequest)
-            
-            for result in results as! [NSManagedObject] {
+
+            // objectList'i güncelle
+            objectList = results as! [NSManagedObject]
+
+            // favoriteList'i güncelle
+            favoriteList = objectList.compactMap { result in
+                if let news_title = result.value(forKey: "news_title") as? String,
+                   let img = result.value(forKey: "img") as? String,
+                   let id = result.value(forKey: "id") as? String,
+                   let news_author = result.value(forKey: "news_author") as? String,
+                   let news_content = result.value(forKey: "news_content") as? String,
+                   let source_name = result.value(forKey: "source_name") as? String,
+                   let description = result.value(forKey: "news_description") as? String,
+                   let news_url = result.value(forKey: "news_url") as? String {
+                    
+                    return FavoriteNewsModel(source: source_name, author: news_author, title: news_title, description: description, url: news_url, urlToImage: img, publishedAt: id, content: news_content)
+                }
                 
+                return nil // Nil değeri dönerek favori haber modelini atla
+            }
+
+            // TableView'ı güncelle
+            favoriteTableView.reloadData()
+            updateView()
+        } catch {
+            print("CoreData'dan veri çekme hatası: \(error)")
+        }
+    }
+
+    
+  /*  override func viewDidAppear(_ animated: Bool) {
+        print("=================  VIEW DID APPEAR")
+        print(favoriteList.count)
+        print(objectList.count)
+        favoriteList.removeAll()
+        objectList.removeAll()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        let context = appDelegate.persistentContainer.viewContext
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteList")
+        fetchRequest.returnsObjectsAsFaults = false
+        do {
+            let results = try context.fetch(fetchRequest)
+            for result in results as! [NSManagedObject] {
                 objectList.append(result)
-               
                 if let news_title = result.value(forKey: "news_title") as? String,
                    let img = result.value(forKey: "img") as? String,
                    let id = result.value(forKey: "id") as? String,
@@ -64,14 +101,17 @@ class FavoriteScreenViewController: UIViewController {
             }
             self.favoriteTableView.reloadData()
             updateView()
+            print("favori listesi uzunlugu : \(favoriteList.count)")
+            print("object listesi uzunlugu : \(objectList.count)")
+            
         } catch {
             print("error")
         }
-    }
+    }*/
     
     
     func updateView() {
-        if favoriteList.isEmpty {
+        if objectList.isEmpty {
             favoriteTableView.isHidden = true
             emptyListLabel.isHidden = false
             deleteBtn.isHidden = true

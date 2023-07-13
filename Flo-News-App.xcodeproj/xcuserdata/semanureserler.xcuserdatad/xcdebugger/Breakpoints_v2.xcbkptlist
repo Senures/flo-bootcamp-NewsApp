@@ -14,10 +14,74 @@
             filePath = "Flo-News-App/Search/SearchScreenViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "203"
-            endingLineNumber = "203"
+            startingLineNumber = "282"
+            endingLineNumber = "282"
             landmarkName = "searchBarSearchButtonClicked(_:)"
             landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "FA020090-4720-463D-A993-2FFCC6861FE6"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Flo-News-App/Detail/DetailScreenViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
+            landmarkName = "saveNewsBtn(_:)"
+            landmarkType = "7">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "4D497CF0-BFDE-44A9-895E-C514DA5A2071"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "Flo-News-App/Detail/DetailScreenViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "75"
+            endingLineNumber = "75"
+            landmarkName = "saveNewsBtn(_:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "4D497CF0-BFDE-44A9-895E-C514DA5A2071 - 61e6aef15eae72"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flo_News_App.DetailScreenViewController.saveNewsBtn(Any) -&gt; ()"
+                  moduleName = "Flo-News-App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/semanureserler/Desktop/flo-bootcamp-NewsApp/Flo-News-App/Detail/DetailScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "75"
+                  endingLineNumber = "75"
+                  offsetFromSymbolStart = "2404">
+               </Location>
+               <Location
+                  uuid = "4D497CF0-BFDE-44A9-895E-C514DA5A2071 - 61e6aef15eae72"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flo_News_App.DetailScreenViewController.saveNewsBtn(Any) -&gt; ()"
+                  moduleName = "Flo-News-App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/semanureserler/Desktop/flo-bootcamp-NewsApp/Flo-News-App/Detail/DetailScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "75"
+                  endingLineNumber = "75"
+                  offsetFromSymbolStart = "2376">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

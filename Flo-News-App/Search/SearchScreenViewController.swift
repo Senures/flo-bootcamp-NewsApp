@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class SearchScreenViewController: UIViewController {
     
@@ -55,28 +56,106 @@ class SearchScreenViewController: UIViewController {
         
         categoryCv.reloadData()
         // Do any additional setup after loading the view.
+        
+     
     }
+    
+   
     
     override func viewWillAppear(_ animated: Bool) {
        getSearhList()
+        
     }
     
     func getSearhList(){
+        
+       // SkeletonView ayarları
+     /*   searchTableView.isSkeletonable = true
+        searchTableView.separatorStyle = .none
+        searchTableView.showAnimatedSkeleton() */
+     
         ApiClient.apiClient.search(params:"general") { response in
                      self.searchList = response.articles
+                      self.searchTableView.hideSkeleton()
                      self.searchTableView.reloadData()
                      
                  }
+       
     }
     
 }
+
+/*extension SearchScreenViewController : SkeletonTableViewDelegate , SkeletonTableViewDataSource {
+    
+    func collectionSkeletonView(_ skeletonView: UITableView, cellIdentifierForRowAt indexPath: IndexPath) -> ReusableCellIdentifier {
+        return "searchCell"
+    }
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        if (searching ?? false){
+            return filteredArticles.count
+        } else {
+            return searchList?.count ?? 2
+        }
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier:"searchCell", for: indexPath) as! SearchTableViewCell
+
+        if !(searching ??  false){
+            cell.lbl.text = searchList?[indexPath.row].title
+            cell.img.kf.setImage(with: URL(string:searchList?[indexPath.row].urlToImage ?? ""), placeholder:UIImage(named:"image"))
+            cell.dscriptionLbl.text = searchList?[indexPath.row].description
+        } else {
+            cell.lbl.text = filteredArticles[indexPath.row].title
+            cell.img.kf.setImage(with: URL(string:filteredArticles[indexPath.row].urlToImage ?? ""), placeholder:UIImage(named:"image"))
+            cell.dscriptionLbl.text = filteredArticles[indexPath.row].description
+        }
+        
+       /* // Hücre içeriğinin (contentView) kenar boşluklarını ayarla
+           let contentInsets = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
+           cell.contentInsets = contentInsets */
+        
+        // SkeletonView'i kaldır
+        cell.contentView.hideSkeleton()
+        
+        return cell
+    }
+    
+  
+   
+    
+  /*  override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        searchTableView.isSkeletonable = true
+        searchTableView.showAnimatedGradientSkeleton()
+    }*/
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let data = searchList?[indexPath.row]
+        self.performSegue(withIdentifier: "goDetail", sender: data)
+    }
+    
+    //DİĞER SAYFANIN CONTROLLERINDA  VERİYİ ALMAK İÇİN
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goDetail" {
+            
+            let dvc = segue.destination as? DetailScreenViewController
+            dvc?.newsResponseModel = sender as? Article
+            
+        }
+    }
+   
+    
+} */
 
 extension SearchScreenViewController : UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if (searching ?? false){
             return filteredArticles.count
         } else {
-            return searchList?.count ?? 2
+            return searchList?.count ?? 0
         }
        
     }

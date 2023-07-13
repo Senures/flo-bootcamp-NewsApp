@@ -8,7 +8,21 @@
 import UIKit
 import Firebase
 
-class LoginScreenViewController: UIViewController {
+protocol LoginScreenViewControllerProtocol : AnyObject {
+ //protocolleri weaki sadece classlara uygulanması gerekiyo,structlara değil.
+    func setupUI()
+    func showPassword()
+  /*  func setupUI()
+    func collectionViewSet()
+    func reloadCollectionView() */
+}
+
+final class LoginScreenViewController : UIViewController, LoginScreenViewControllerProtocol {
+   
+    
+    
+    
+    private lazy var  viewModel = LoginViewModel()
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var forgotPasBtn: UIButton!
@@ -18,7 +32,9 @@ class LoginScreenViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     
     @IBOutlet weak var isLoading: UIActivityIndicatorView!
-    var isShowPassword : Bool = false
+    
+    
+   // var isShowPassword : Bool = false
     let closeEye = UIImage(named: "close")
     
     //let iconImageView = UIImageView(image:UIImage(named: <#T##String#>))
@@ -27,6 +43,13 @@ class LoginScreenViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        viewModel.view = self
+        //view modelın delegate
+        viewModel.viewDidLoad()
+     
+    }
+    
+    func setupUI(){
         emailField.textColor = .black
         passwordField.textColor = .black
         loginBtn.layer.cornerRadius = 5
@@ -35,7 +58,6 @@ class LoginScreenViewController: UIViewController {
         
         isLoading.stopAnimating()
         isLoading.isHidden = true
-        
     }
     
     @IBAction func loginBtnClick(_ sender: Any) {
@@ -43,17 +65,22 @@ class LoginScreenViewController: UIViewController {
     }
     @IBAction func goRegisterPage(_ sender: Any) {
         performSegue(withIdentifier:"goRegister", sender: nil)
-        print("butonaaa tıklandıııı")
+        
     }
     @IBAction func forgotPassClick(_ sender: Any) {
         performSegue(withIdentifier: "resetPassword", sender:nil)
     }
-    // şifre gösterilmesi
+    // butona basınca şifre gösterilmesi
     @IBAction func showPassBtn(_ sender: Any) {
-        print("basıldııııııııııı")
-        isShowPassword = !isShowPassword
-        print("\(isShowPassword)")
-        if isShowPassword {
+       showPassword()
+        
+    }
+    
+    //şifre gösterilmesi
+    func showPassword(){
+        viewModel.isShowPassword = !viewModel.isShowPassword
+        print("\(viewModel.isShowPassword)")
+        if viewModel.isShowPassword {
             passwordField.isSecureTextEntry = false
             showPassBtn.setImage(closeEye, for: .normal)
             
@@ -62,7 +89,6 @@ class LoginScreenViewController: UIViewController {
             showPassBtn.setImage(UIImage(named: "eye"), for: .normal)
             
         }
-        
     }
     func showAlert(message: String) {
         let alert = UIAlertController(title: "Uyarı", message: message, preferredStyle: .alert)

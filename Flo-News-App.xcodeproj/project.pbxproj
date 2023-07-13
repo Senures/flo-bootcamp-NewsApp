@@ -24,6 +24,7 @@
 		0F5478F72A4618A700251EE4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F5478F62A4618A700251EE4 /* GoogleService-Info.plist */; };
 		0F5478F92A46277900251EE4 /* RegisterScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5478F82A46277900251EE4 /* RegisterScreenViewController.swift */; };
 		0F67A8BD2A4A1B9C00EC01B7 /* DetailScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F67A8BC2A4A1B9C00EC01B7 /* DetailScreenViewController.swift */; };
+		0F8E4ECA2A600B7C0081CD15 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 0F8E4EC92A600B7C0081CD15 /* SkeletonView */; };
 		0F901D672A486DE400322287 /* SearchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D662A486DE400322287 /* SearchScreenViewController.swift */; };
 		0F901D6A2A48901B00322287 /* FavoriteScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D692A48901A00322287 /* FavoriteScreenViewController.swift */; };
 		0F901D6E2A48912F00322287 /* ProfileScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D6D2A48912F00322287 /* ProfileScreenViewController.swift */; };
@@ -33,6 +34,7 @@
 		0F92E76D2A48D94700D21D26 /* ApiClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F92E76C2A48D94700D21D26 /* ApiClient.swift */; };
 		0F92E7702A48D9EE00D21D26 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F92E76F2A48D9EE00D21D26 /* Constants.swift */; };
 		0F92E7732A48DA5D00D21D26 /* NewsResponseModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F92E7722A48DA5D00D21D26 /* NewsResponseModel.swift */; };
+		0F937C572A5D8B0400012DC5 /* LoginViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F937C562A5D8B0400012DC5 /* LoginViewModel.swift */; };
 		0F93B6372A49908F0069F6ED /* TrendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93B6362A49908F0069F6ED /* TrendCollectionViewCell.swift */; };
 		0F93B6392A49B53F0069F6ED /* RecommendCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F93B6382A49B53F0069F6ED /* RecommendCollectionViewCell.swift */; };
 		0F94571C2A38A7E300DB1905 /* OnboardingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F94571B2A38A7E300DB1905 /* OnboardingViewController.swift */; };
@@ -87,6 +89,7 @@
 		0F92E76C2A48D94700D21D26 /* ApiClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ApiClient.swift; sourceTree = "<group>"; };
 		0F92E76F2A48D9EE00D21D26 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		0F92E7722A48DA5D00D21D26 /* NewsResponseModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsResponseModel.swift; sourceTree = "<group>"; };
+		0F937C562A5D8B0400012DC5 /* LoginViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModel.swift; sourceTree = "<group>"; };
 		0F93B6362A49908F0069F6ED /* TrendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TrendCollectionViewCell.swift; sourceTree = "<group>"; };
 		0F93B6382A49B53F0069F6ED /* RecommendCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecommendCollectionViewCell.swift; sourceTree = "<group>"; };
 		0F94571B2A38A7E300DB1905 /* OnboardingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingViewController.swift; sourceTree = "<group>"; };
@@ -124,6 +127,7 @@
 				0F1C3BD12A41F083001B9C0A /* IQKeyboardManagerSwift in Frameworks */,
 				0F92E7692A48D8D300D21D26 /* Kingfisher in Frameworks */,
 				0F5478E52A46050900251EE4 /* FirebaseCrashlytics in Frameworks */,
+				0F8E4ECA2A600B7C0081CD15 /* SkeletonView in Frameworks */,
 				0F5478EF2A46050900251EE4 /* FirebaseFunctions in Frameworks */,
 				0F5478E32A46050900251EE4 /* FirebaseAuthCombine-Community in Frameworks */,
 				0F5478F52A46050900251EE4 /* FirebaseStorage in Frameworks */,
@@ -165,7 +169,8 @@
 		0F1C3BCC2A41EF33001B9C0A /* Login */ = {
 			isa = PBXGroup;
 			children = (
-				0F1C3BCD2A41EF71001B9C0A /* LoginScreenViewController.swift */,
+				0F937C552A5D8AC300012DC5 /* VM */,
+				0F937C542A5D8AB900012DC5 /* View */,
 				0F5478D72A444B2C00251EE4 /* ForgotPasswordViewController.swift */,
 			);
 			path = Login;
@@ -250,6 +255,22 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		0F937C542A5D8AB900012DC5 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0F1C3BCD2A41EF71001B9C0A /* LoginScreenViewController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		0F937C552A5D8AC300012DC5 /* VM */ = {
+			isa = PBXGroup;
+			children = (
+				0F937C562A5D8B0400012DC5 /* LoginViewModel.swift */,
+			);
+			path = VM;
+			sourceTree = "<group>";
+		};
 		0F9457152A3880CB00DB1905 /* Supported Files */ = {
 			isa = PBXGroup;
 			children = (
@@ -259,14 +280,14 @@
 			path = "Supported Files";
 			sourceTree = "<group>";
 		};
-		0F94571A2A38A6E800DB1905 /* Onboarding */ = {
+		0F94571A2A38A6E800DB1905 /* OnboardModule */ = {
 			isa = PBXGroup;
 			children = (
 				0F1C3BCB2A41D5E9001B9C0A /* controller */,
 				0F9457202A38C4FE00DB1905 /* cell */,
 				0F94571D2A38AD1900DB1905 /* Model */,
 			);
-			path = Onboarding;
+			path = OnboardModule;
 			sourceTree = "<group>";
 		};
 		0F94571D2A38AD1900DB1905 /* Model */ = {
@@ -346,7 +367,7 @@
 				0F5478D92A44606F00251EE4 /* Register */,
 				0F1C3BCC2A41EF33001B9C0A /* Login */,
 				0FADBA432A399D400059B6DA /* Extensions */,
-				0F94571A2A38A6E800DB1905 /* Onboarding */,
+				0F94571A2A38A6E800DB1905 /* OnboardModule */,
 				0F9457152A3880CB00DB1905 /* Supported Files */,
 				0FC3339E2A360265004A9CB6 /* Main.storyboard */,
 				0FC333A42A360267004A9CB6 /* Assets.xcassets */,
@@ -405,6 +426,7 @@
 				0F5478F42A46050900251EE4 /* FirebaseStorage */,
 				0F92E7652A48D8BE00D21D26 /* Alamofire */,
 				0F92E7682A48D8D300D21D26 /* Kingfisher */,
+				0F8E4EC92A600B7C0081CD15 /* SkeletonView */,
 			);
 			productName = "Flo-News-App";
 			productReference = 0FC333952A360265004A9CB6 /* Flo-News-App.app */;
@@ -483,6 +505,7 @@
 				0F5478DF2A46050900251EE4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
 				0F92E7642A48D8BE00D21D26 /* XCRemoteSwiftPackageReference "Alamofire" */,
 				0F92E7672A48D8D300D21D26 /* XCRemoteSwiftPackageReference "Kingfisher" */,
+				0F8E4EC82A600B7C0081CD15 /* XCRemoteSwiftPackageReference "SkeletonView" */,
 			);
 			productRefGroup = 0FC333962A360265004A9CB6 /* Products */;
 			projectDirPath = "";
@@ -548,6 +571,7 @@
 				0F94DF1F2A4AF7E5001C8E82 /* WebViewController.swift in Sources */,
 				0F92E76D2A48D94700D21D26 /* ApiClient.swift in Sources */,
 				0FC3339B2A360265004A9CB6 /* SceneDelegate.swift in Sources */,
+				0F937C572A5D8B0400012DC5 /* LoginViewModel.swift in Sources */,
 				0F92E7732A48DA5D00D21D26 /* NewsResponseModel.swift in Sources */,
 				0F94DF242A4B0CC0001C8E82 /* SearchTableViewCell.swift in Sources */,
 				0F9457222A38C51D00DB1905 /* OnboardingCollectionViewCell.swift in Sources */,
@@ -906,6 +930,14 @@
 				minimumVersion = 10.0.0;
 			};
 		};
+		0F8E4EC82A600B7C0081CD15 /* XCRemoteSwiftPackageReference "SkeletonView" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Juanpe/SkeletonView.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		0F92E7642A48D8BE00D21D26 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/Alamofire/Alamofire.git";
@@ -984,6 +1016,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0F5478DF2A46050900251EE4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
+		};
+		0F8E4EC92A600B7C0081CD15 /* SkeletonView */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 0F8E4EC82A600B7C0081CD15 /* XCRemoteSwiftPackageReference "SkeletonView" */;
+			productName = SkeletonView;
 		};
 		0F92E7652A48D8BE00D21D26 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;
