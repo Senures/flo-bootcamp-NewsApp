@@ -78,14 +78,14 @@ class DetailScreenViewController: UIViewController {
             
             let news = NSEntityDescription.insertNewObject(forEntityName: "FavoriteList", into: context)
             //photo bu coredatadaki isminin adı
-            news.setValue(newsResponseModel?.title, forKey: "news_title")
-            news.setValue(newsResponseModel?.urlToImage, forKey: "img")
-            news.setValue(newsResponseModel?.publishedAt, forKey: "id")
-            news.setValue(newsResponseModel?.author, forKey: "news_author")
-            news.setValue(newsResponseModel?.description, forKey: "news_content")
-          news.setValue(newsResponseModel?.source?.name, forKey: "source_name")
-            news.setValue(newsResponseModel?.url, forKey: "news_url")
-            news.setValue(newsResponseModel?.description, forKey: "news_description")
+            news.setValue(newsResponseModel?.title ?? "", forKey: "news_title")
+            news.setValue(newsResponseModel?.urlToImage ?? "https://images.unsplash.com/photo-1585829365295-ab7cd400c167?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1770&q=80", forKey: "img")
+            news.setValue(newsResponseModel?.publishedAt ?? "", forKey: "id")
+            news.setValue(newsResponseModel?.author ?? "", forKey: "news_author")
+            news.setValue(newsResponseModel?.description ?? "", forKey: "news_content")
+          news.setValue(newsResponseModel?.source?.name ?? "", forKey: "source_name")
+            news.setValue(newsResponseModel?.url ?? "", forKey: "news_url")
+            news.setValue(newsResponseModel?.description ?? "", forKey: "news_description")
            
             do {
                 try context.save()

@@ -11,6 +11,7 @@ import CoreData
 class FavoriteScreenViewController: UIViewController {
     
     @IBAction func deleteBtnClick(_ sender: Any) {
+        //komple sıfırlama
     }
     @IBOutlet weak var deleteBtn: UIButton!
     @IBOutlet weak var favoriteTableView: UITableView!
@@ -29,12 +30,11 @@ class FavoriteScreenViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
-   
+        
     }
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        print("favori listesi uzunlugu : \(favoriteList.count)")
-        print("object listesi uzunlugu : \(objectList.count)")
+        
         // CoreData'dan verileri çekme
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
@@ -42,10 +42,10 @@ class FavoriteScreenViewController: UIViewController {
         fetchRequest.returnsObjectsAsFaults = false
         do {
             let results = try context.fetch(fetchRequest)
-
+            
             // objectList'i güncelle
             objectList = results as! [NSManagedObject]
-
+            
             // favoriteList'i güncelle
             favoriteList = objectList.compactMap { result in
                 if let news_title = result.value(forKey: "news_title") as? String,
@@ -62,7 +62,7 @@ class FavoriteScreenViewController: UIViewController {
                 
                 return nil // Nil değeri dönerek favori haber modelini atla
             }
-
+            
             // TableView'ı güncelle
             favoriteTableView.reloadData()
             updateView()
@@ -70,54 +70,55 @@ class FavoriteScreenViewController: UIViewController {
             print("CoreData'dan veri çekme hatası: \(error)")
         }
     }
-
     
-  /*  override func viewDidAppear(_ animated: Bool) {
-        print("=================  VIEW DID APPEAR")
-        print(favoriteList.count)
-        print(objectList.count)
-        favoriteList.removeAll()
-        objectList.removeAll()
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        let context = appDelegate.persistentContainer.viewContext
-        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteList")
-        fetchRequest.returnsObjectsAsFaults = false
-        do {
-            let results = try context.fetch(fetchRequest)
-            for result in results as! [NSManagedObject] {
-                objectList.append(result)
-                if let news_title = result.value(forKey: "news_title") as? String,
-                   let img = result.value(forKey: "img") as? String,
-                   let id = result.value(forKey: "id") as? String,
-                   let news_author = result.value(forKey: "news_author") as? String,
-                   let news_content = result.value(forKey: "news_content") as? String,
-                   let source_name = result.value(forKey: "source_name") as? String,
-                   let description = result.value(forKey: "news_description") as? String,
-                   let news_url = result.value(forKey: "news_url") as? String {
-                    
-                    let news = FavoriteNewsModel(source: source_name, author: news_author, title: news_title, description: description, url: news_url, urlToImage: img, publishedAt: id, content: news_content)
-                    favoriteList.append(news)
-                }
-            }
-            self.favoriteTableView.reloadData()
-            updateView()
-            print("favori listesi uzunlugu : \(favoriteList.count)")
-            print("object listesi uzunlugu : \(objectList.count)")
-            
-        } catch {
-            print("error")
-        }
-    }*/
+    
+    /*  override func viewDidAppear(_ animated: Bool) {
+     print("=================  VIEW DID APPEAR")
+     print(favoriteList.count)
+     print(objectList.count)
+     favoriteList.removeAll()
+     objectList.removeAll()
+     let appDelegate = UIApplication.shared.delegate as! AppDelegate
+     let context = appDelegate.persistentContainer.viewContext
+     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteList")
+     fetchRequest.returnsObjectsAsFaults = false
+     do {
+     let results = try context.fetch(fetchRequest)
+     for result in results as! [NSManagedObject] {
+     objectList.append(result)
+     if let news_title = result.value(forKey: "news_title") as? String,
+     let img = result.value(forKey: "img") as? String,
+     let id = result.value(forKey: "id") as? String,
+     let news_author = result.value(forKey: "news_author") as? String,
+     let news_content = result.value(forKey: "news_content") as? String,
+     let source_name = result.value(forKey: "source_name") as? String,
+     let description = result.value(forKey: "news_description") as? String,
+     let news_url = result.value(forKey: "news_url") as? String {
+     
+     let news = FavoriteNewsModel(source: source_name, author: news_author, title: news_title, description: description, url: news_url, urlToImage: img, publishedAt: id, content: news_content)
+     favoriteList.append(news)
+     }
+     }
+     self.favoriteTableView.reloadData()
+     updateView()
+     print("favori listesi uzunlugu : \(favoriteList.count)")
+     print("object listesi uzunlugu : \(objectList.count)")
+     
+     } catch {
+     print("error")
+     }
+     }*/
     
     
     func updateView() {
-        if objectList.isEmpty {
+        if objectList.isEmpty || favoriteList.isEmpty {
             favoriteTableView.isHidden = true
             emptyListLabel.isHidden = false
             deleteBtn.isHidden = true
         } else {
             favoriteTableView.isHidden = false
-            emptyListLabel.isHidden = true
+            emptyListLabel.isHidden = false
+            deleteBtn.isHidden = false
         }
     }
     
@@ -126,7 +127,7 @@ class FavoriteScreenViewController: UIViewController {
 
 extension FavoriteScreenViewController: UITableViewDelegate,UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return favoriteList.count ?? 2
+        return favoriteList.count ?? 0
         
         
     }
@@ -152,8 +153,13 @@ extension FavoriteScreenViewController: UITableViewDelegate,UITableViewDataSourc
         if segue.identifier == "goDetail" {
             
             let dvc = segue.destination as? DetailScreenViewController
-            dvc?.newsResponseModel = sender as? Article
+            let a  = sender as?  FavoriteNewsModel
+            var b  = Article(source: Source(id: "",name: ""), author: a?.author,title:  a?.title, description: a?.description, url: a?.url, urlToImage: a?.urlToImage, publishedAt: a?.publishedAt,content: a?.content )
+          
+            dvc?.newsResponseModel = b
             
+            print(a?.title)
+            print(dvc?.newsResponseModel?.title)
         }
     }
     
@@ -189,6 +195,7 @@ extension FavoriteScreenViewController: UITableViewDelegate,UITableViewDataSourc
         // Değişiklikleri kaydetme
         do {
             try context.save()
+            updateView()
         } catch {
             print("Core Data'da hata oluştu: \(error)")
         }

@@ -21,8 +21,5 @@ final class LoginViewModel : LoginViewModelProtocol {
         view?.setupUI()
         
     }
-    
-    
-    
-    
+  
 }
