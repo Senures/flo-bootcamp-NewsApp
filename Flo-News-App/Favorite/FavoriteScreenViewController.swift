@@ -11,7 +11,17 @@ import CoreData
 class FavoriteScreenViewController: UIViewController {
     
     @IBAction func deleteBtnClick(_ sender: Any) {
-        //komple sıfırlama
+        let alertController = UIAlertController(title: "Silme İşlemi", message: "Tüm verileri silmek istediğinize emin misiniz?", preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "Vazgeç", style: .cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            
+            let deleteAction = UIAlertAction(title: "Sil", style: .destructive) { (_) in
+                self.deleteAllData()
+            }
+            alertController.addAction(deleteAction)
+            
+            present(alertController, animated: true, completion: nil)
     }
     @IBOutlet weak var deleteBtn: UIButton!
     @IBOutlet weak var favoriteTableView: UITableView!
@@ -71,45 +81,7 @@ class FavoriteScreenViewController: UIViewController {
         }
     }
     
-    
-    /*  override func viewDidAppear(_ animated: Bool) {
-     print("=================  VIEW DID APPEAR")
-     print(favoriteList.count)
-     print(objectList.count)
-     favoriteList.removeAll()
-     objectList.removeAll()
-     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-     let context = appDelegate.persistentContainer.viewContext
-     let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteList")
-     fetchRequest.returnsObjectsAsFaults = false
-     do {
-     let results = try context.fetch(fetchRequest)
-     for result in results as! [NSManagedObject] {
-     objectList.append(result)
-     if let news_title = result.value(forKey: "news_title") as? String,
-     let img = result.value(forKey: "img") as? String,
-     let id = result.value(forKey: "id") as? String,
-     let news_author = result.value(forKey: "news_author") as? String,
-     let news_content = result.value(forKey: "news_content") as? String,
-     let source_name = result.value(forKey: "source_name") as? String,
-     let description = result.value(forKey: "news_description") as? String,
-     let news_url = result.value(forKey: "news_url") as? String {
-     
-     let news = FavoriteNewsModel(source: source_name, author: news_author, title: news_title, description: description, url: news_url, urlToImage: img, publishedAt: id, content: news_content)
-     favoriteList.append(news)
-     }
-     }
-     self.favoriteTableView.reloadData()
-     updateView()
-     print("favori listesi uzunlugu : \(favoriteList.count)")
-     print("object listesi uzunlugu : \(objectList.count)")
-     
-     } catch {
-     print("error")
-     }
-     }*/
-    
-    
+    //liste bos ise cöp kutusu ve liste bos yazısı gözükmesi
     func updateView() {
         if objectList.isEmpty || favoriteList.isEmpty {
             favoriteTableView.isHidden = true
@@ -121,8 +93,25 @@ class FavoriteScreenViewController: UIViewController {
             deleteBtn.isHidden = false
         }
     }
-    
-    
+    //core datadaki tüm verileri silme
+    func deleteAllData() {
+        guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+        let context = appDelegate.persistentContainer.viewContext
+
+        let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteList")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
+
+        do {
+            try context.execute(deleteRequest)
+            try context.save()
+            favoriteList.removeAll()
+            favoriteTableView.reloadData()
+            updateView()
+        } catch {
+            print("Core Data'da hata oluştu: \(error)")
+        }
+    }
+
 }
 
 extension FavoriteScreenViewController: UITableViewDelegate,UITableViewDataSource {
@@ -191,7 +180,7 @@ extension FavoriteScreenViewController: UITableViewDelegate,UITableViewDataSourc
         
         // TableView'i güncelleme
         favoriteTableView.reloadData()
-        print(favoriteList.count)
+        
         // Değişiklikleri kaydetme
         do {
             try context.save()
