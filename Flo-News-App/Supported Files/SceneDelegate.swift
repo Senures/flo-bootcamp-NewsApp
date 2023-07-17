@@ -25,11 +25,14 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if showBoard == true {
             print("evet gösterildi : \(showBoard)")
             if Auth.auth().currentUser != nil {
+                print("CURRENT USER NIL DEGIL")
+                print(Auth.auth().currentUser?.email)
                 //kullanıcı girmişse daha önce
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let tabBarController = storyboard.instantiateViewController(withIdentifier: "tabVc")
                 window?.rootViewController = tabBarController
             } else {
+                print("CURRENT USER NIL")
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let loginController = storyboard.instantiateViewController(withIdentifier: "LoginScreenViewController") //sayfanın storyboard idsi
                 window?.rootViewController = loginController

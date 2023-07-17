@@ -49,6 +49,7 @@ class OnboardingViewController: UIViewController {
         ]
     }
     
+    
 
     @IBAction func nextBtnClick(_ sender: Any) {
         if currentPage == slides.count - 1 {
@@ -56,11 +57,13 @@ class OnboardingViewController: UIViewController {
             UserDefaults.standard.set(showBoard, forKey: "showOnboard")
             //onboard gösterilcek mi kısmı
             performSegue(withIdentifier: "goLogin", sender:nil)
+            print("STORYBOARD GO LOGIN GİTMESİ GEREKİYOR")
         } else {
             currentPage += 1
             let indexPath = IndexPath(item: currentPage, section:0)
             nextBtn.setTitleColor(.white, for:.normal)
             collectionView.scrollToItem(at: indexPath, at:.centeredHorizontally, animated: true)
+            print("STORYBOARD NEXT")
         }
     }
    

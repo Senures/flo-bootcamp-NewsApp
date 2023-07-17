@@ -7,17 +7,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "EEED44B8-AC39-47ED-8979-44611934789A"
-            shouldBeEnabled = "No"
+            uuid = "DD570C61-D4D9-4866-9C50-56982C5DAF39"
+            shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "Flo-News-App/Search/SearchScreenViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "282"
-            endingLineNumber = "282"
-            landmarkName = "searchBarSearchButtonClicked(_:)"
+            startingLineNumber = "378"
+            endingLineNumber = "378"
+            landmarkName = "searchBarCancelButtonClicked(_:)"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "DD570C61-D4D9-4866-9C50-56982C5DAF39 - 1bf16b693c25b984"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flo_News_App.SearchScreenViewController.searchBarCancelButtonClicked(__C.UISearchBar) -&gt; ()"
+                  moduleName = "Flo-News-App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/semanureserler/Desktop/flo-bootcamp-NewsApp/Flo-News-App/Search/SearchScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "378"
+                  endingLineNumber = "378"
+                  offsetFromSymbolStart = "96">
+               </Location>
+               <Location
+                  uuid = "DD570C61-D4D9-4866-9C50-56982C5DAF39 - 1bf16b693c25b9c2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "Flo_News_App.SearchScreenViewController.searchBarCancelButtonClicked(__C.UISearchBar) -&gt; ()"
+                  moduleName = "Flo-News-App"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/semanureserler/Desktop/flo-bootcamp-NewsApp/Flo-News-App/Search/SearchScreenViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "380"
+                  endingLineNumber = "380"
+                  offsetFromSymbolStart = "56">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

@@ -20,10 +20,29 @@ class SearchScreenViewController: UIViewController {
     private var filteredArticles: [Article] = []
     
     var searching:Bool?
+    let label = UILabel()
+    
     let categoryList = ["Business","Entertainment","General","Health","Science","Sports","Technology"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Label'i oluşturun
+                
+                label.text = "No search results found"
+                label.textColor = UIColor.orange
+                label.textAlignment = .center
+                label.font = UIFont.systemFont(ofSize: 22)
+                label.sizeToFit()
+
+                // Label'in boyutunu ve konumunu belirleyin
+                let screenWidth = view.frame.width
+                let screenHeight = view.frame.height
+                // Label'in konumunu belirleyin (ekranın ortasında)
+                label.center = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
+                label.isHidden = true
+                // Label'i görünüme ekleyin
+                view.addSubview(label)
         
         
         categoryCv.delegate = self
@@ -74,7 +93,8 @@ class SearchScreenViewController: UIViewController {
         searchTableView.separatorStyle = .none
         searchTableView.showAnimatedSkeleton() */
      
-        ApiClient.apiClient.search(params:"general") { response in
+        ApiClient.apiClient.search(params:"business") { response in
+            
                      self.searchList = response.articles
                       self.searchTableView.hideSkeleton()
                      self.searchTableView.reloadData()
@@ -208,11 +228,20 @@ extension SearchScreenViewController :  UICollectionViewDelegate , UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = categoryCv.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as! CategoryViewCell
         
-        cell.categoryName.text = categoryList[indexPath.row]
-        // cell.contentView.layer.cornerRadius = 5
-        cell.categoryName.font = UIFont.systemFont(ofSize: 16)
-        cell.categoryName.textColor = .white
-        cell.contentView.layer.masksToBounds = true
+        if indexPath.row == 0 {
+            cell.categoryName.text = categoryList[0]
+            cell.categoryName.textColor = .orange
+             cell.categoryName.font = UIFont.systemFont(ofSize: 16)
+            cell.contentView.layer.borderWidth = 1.0 // Kenarlık kalınlığını belirleyin
+             cell.contentView.layer.borderColor = UIColor.orange.cgColor
+             cell.contentView.layer.cornerRadius = 10
+        }else{
+            cell.categoryName.text = categoryList[indexPath.row]
+            cell.categoryName.font = UIFont.systemFont(ofSize: 16)
+            cell.categoryName.textColor = .white
+            cell.contentView.layer.masksToBounds = true
+        }
+        
         
         return cell
     }
@@ -293,19 +322,40 @@ extension SearchScreenViewController : UISearchBarDelegate  {
     // Arama işlemini gerçekleştiren fonksiyonu çağırın
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         print("semaaa:\(searchText)")
+        if let searchText = searchBar.text, !searchText.isEmpty {
+            ApiClient.apiClient.search(params: searchText) { response in
+                self.searchList = response.articles
+                
+                if self.searchList?.count == 0 {
+                    print("SEARCH LIST NULLL")
+                    self.searchTableView.isHidden = true
+                    self.label.isHidden = false
+                }else{
+                    self.searchTableView.isHidden = false
+                    self.label.isHidden = true
+                    print("SEARCH LIST NULL DEGIL")
+                }
+                self.searchTableView.reloadData()
+            }
+        }
         filteredArticles = searchArticles(with: searchText)
         searchTableView.reloadData()
     }
     
     func searchArticles(with searchText: String) -> [Article] {
+        
+        
+        
         // Arama metnine göre filtreleme işlemini gerçekleştirin ve sonuçları döndürün
         if searchText.isEmpty {
+            label.isHidden = true
+            searchTableView.isHidden = false
             getSearhList()
             return searchList!
         } else {
-            let filteredArticles = searchList!.filter { $0.title!.contains(searchText) }
+            let filteredArticles = searchList?.filter { $0.title!.contains(searchText) }
             print("eda:\(searchText)")
-            return filteredArticles
+            return filteredArticles ?? []
         }
         
     }

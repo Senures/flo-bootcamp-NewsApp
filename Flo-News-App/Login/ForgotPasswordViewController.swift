@@ -10,19 +10,21 @@ import Firebase
 
 class ForgotPasswordViewController: UIViewController {
 
+    @IBOutlet weak var sendMailBtn: UIButton!
     @IBOutlet weak var email: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         isLoading.stopAnimating()
         isLoading.isHidden = true
+        sendMailBtn.layer.cornerRadius = 5
         // Do any additional setup after loading the view.
     }
     
     @IBAction func sendMail(_ sender: Any) {
         if let emailField = email.text {
             if emailField.isEmpty {
-                showAlert(message: "Lütfen email  gir")
+                showAlert(message: "Please enter your email")
             }
             else {
                 resetPassword(email:email.text!)
@@ -35,8 +37,8 @@ class ForgotPasswordViewController: UIViewController {
     
     @IBOutlet weak var isLoading: UIActivityIndicatorView!
     func showAlert(message: String) {
-        let alert = UIAlertController(title: "Uyarı", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: nil))
+        let alert = UIAlertController(title: "Warning", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     
@@ -57,8 +59,8 @@ class ForgotPasswordViewController: UIViewController {
                 isLoading.stopAnimating()
                 isLoading.isHidden = true
                 print("Şifre sıfırlama e-postası gönderildi")
-                let alert = UIAlertController(title: "Başarılı", message: "Şifre sıfırlama e-postası gönderildi", preferredStyle: .alert)
-                let okAction = UIAlertAction(title: "Tamam", style: .default) { (action) in
+                let alert = UIAlertController(title: "Successful", message: "Password reset email sent", preferredStyle: .alert)
+                let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
                     self.dismiss(animated: true) // Geri dönme işlevini çağır
                 }
                 alert.addAction(okAction)

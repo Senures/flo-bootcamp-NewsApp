@@ -12,6 +12,7 @@ import Kingfisher
 class HomeScreenViewController: UIViewController {
     
     
+    @IBOutlet weak var greetingMessage: UILabel!
     @IBOutlet weak var topHeadCollectionView: UICollectionView!
     
     @IBOutlet weak var trendCollectionView: UICollectionView!
@@ -27,10 +28,10 @@ class HomeScreenViewController: UIViewController {
     var recommendationList:[Article] = []
     
     override func viewWillAppear(_ animated: Bool) {
-    
-     /*   fetchTopHeadlines()
+        
+        fetchTopHeadlines()
         fetchTrendNews()
-        fetchRecommendationNews() */
+        fetchRecommendationNews()
     }
     
     func fetchTrendNews(){
@@ -43,7 +44,7 @@ class HomeScreenViewController: UIViewController {
                 
                 //burada topheadline listesinin uzunlugu olmalıydı bu pagecontrol noktaları sayısı
                 
-                self.pageControl.numberOfPages = self.topHeadList.count ?? 6
+                self.pageControl.numberOfPages = self.topHeadList.count ?? 0
             } else {
                 // Veriler boş, gerekli işlemleri yapma veya hata mesajı gösterme
                 print("API'den veri alınamadı veya veri boş.")
@@ -61,7 +62,7 @@ class HomeScreenViewController: UIViewController {
                 self.topHeadCollectionView.reloadData()
                 
                 self.recommendCv.reloadData()
-                self.pageControl.numberOfPages = self.topHeadList.count ?? 6
+          
             } else {
                 // Veriler boş, gerekli işlemleri yapma veya hata mesajı gösterme
                 print("API'den veri alınamadı veya veri boş.")
@@ -87,6 +88,7 @@ class HomeScreenViewController: UIViewController {
         }
     }
     
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         topHeadCollectionView.dataSource = self
@@ -106,7 +108,7 @@ class HomeScreenViewController: UIViewController {
         recommendCv.reloadData()
         
         todayDate()
-        
+        greetMessage()
         
         
         
@@ -118,10 +120,36 @@ class HomeScreenViewController: UIViewController {
     }
     
     
+    
     @IBOutlet weak var pageControl: UIPageControl!
     
-    
+    //bu fonk neden boş
     @IBAction func pageControl(_ sender: Any) {
+    }
+    
+    private func greetMessage(){
+        // Şu anki tarih ve saat bilgisini alın
+        let currentDate = Date()
+        
+        // Takvim nesnesini oluşturun
+        let calendar = Calendar.current
+        
+        // Şu anki saati alın
+        let hour = calendar.component(.hour, from: currentDate)
+        
+        // Saate göre mesajı belirleyin
+        
+        
+        if hour >= 6 && hour < 12 {
+            greetingMessage.text = "Good Morning !"
+        } else if hour >= 18 || hour < 6 {
+            greetingMessage.text = "Good Night !"
+        } else {
+            greetingMessage.text = "Hello !"
+        }
+        
+        // Mesajı ekrana yazdırın
+        print(greetingMessage.text)
     }
     private func todayDate(){
         let dateFormatter = DateFormatter()
@@ -201,7 +229,7 @@ extension HomeScreenViewController : UICollectionViewDelegate, UICollectionViewD
     
     //TIKLANDIGINDA VERİYİ GÖNDERİCEM MODELİ GÖNDERCEM
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-       
+        
         if collectionView == trendCollectionView {
             let data = trendNewsList[indexPath.row]
             self.performSegue(withIdentifier: "goDetail", sender: data)

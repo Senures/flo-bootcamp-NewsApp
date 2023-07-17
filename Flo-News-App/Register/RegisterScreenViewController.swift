@@ -17,6 +17,9 @@ class RegisterScreenViewController: UIViewController {
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var numberField: UITextField!
     
+    @IBAction func backBtn(_ sender: Any) {
+        self.dismiss(animated: true)
+    }
     @IBOutlet weak var indicator: UIActivityIndicatorView!
     
     override func viewDidLoad() {
@@ -27,6 +30,8 @@ class RegisterScreenViewController: UIViewController {
         numberField.autocorrectionType = .no
         passwordField.autocorrectionType = .no
         // Do any additional setup after loading the view.
+        
+        registerBtn.layer.cornerRadius = 5
         
        indicator.stopAnimating()
        indicator.isHidden = true
@@ -42,44 +47,44 @@ class RegisterScreenViewController: UIViewController {
         if let email = emailField.text {
             if email.count < 8 || !email.contains("@") || !email.contains(".com") {
                 // Geçersiz e-posta adresi
-                showAlert(message: "Geçerli bir e-posta adresi girin!")
+                showAlert(message: "Enter a valid email address!")
                 return
             }
         } else {
             // Email alanı boş
-            showAlert(message: "E-posta alanı boş olamaz!")
+            showAlert(message: "Email field cannot be empty!")
             return
         }
         
         // Name kontrolü
         if nameField.text?.isEmpty ?? true {
-                showAlert(message: "Lütfen isim gir")
+                showAlert(message: "Please enter name")
             
         }
         
         // Telefon kontrolü
         if let phone = numberField.text {
-            if phone.count < 8 {
+            if phone.count < 10 {
                 // Telefon alanı 8 karakterden az
-                showAlert(message: "Telefon alanı en az 8 karakter olmalıdır!")
+                showAlert(message: "Phone field must be at least 10 characters!")
                 return
             }
         } else {
             // Telefon alanı boş
-            showAlert(message: "Telefon alanı boş olamaz!")
+            showAlert(message: "Phone field cannot be empty!")
             return
         }
         
         // Şifre kontrolü
         if let password = passwordField.text {
-            if password.count < 8 {
+            if password.count < 9 {
                 // Şifre alanı 8 karakterden az
-                showAlert(message: "Şifre alanı en az 8 karakter olmalıdır!")
+                showAlert(message: "Password field must be at least 8 characters!")
                 return
             }
         } else {
             // Şifre alanı boş
-            showAlert(message: "Şifre alanı boş olamaz!")
+            showAlert(message: "Password field cannot be empty!")
             return
         }
         
@@ -98,7 +103,7 @@ class RegisterScreenViewController: UIViewController {
                 self.saveUserToFirestore(username: nameField.text! , email: emailField.text!, password: passwordField.text!, phoneNumber: numberField.text!)
                 indicator.stopAnimating()
                 indicator.isHidden = true
-                let alert = UIAlertController(title:"Başarılı", message: "Kaydetme başarılı", preferredStyle: UIAlertController.Style.alert)
+                let alert = UIAlertController(title:"Successful", message: "Save successful", preferredStyle: UIAlertController.Style.alert)
                 let okButton = UIAlertAction(title: "OK", style: UIAlertAction.Style.default,handler: nil)
                 alert.addAction(okButton)
                 self.performSegue(withIdentifier: "goLogin", sender: nil)
@@ -113,8 +118,8 @@ class RegisterScreenViewController: UIViewController {
     }
     
     func showAlert(message: String) {
-        let alert = UIAlertController(title: "Uyarı", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: nil))
+        let alert = UIAlertController(title: "Warning", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     
@@ -166,8 +171,8 @@ extension RegisterScreenViewController:UITextFieldDelegate {
         
        
         
-        if updatedText.count > 9 {
-            // 9 karakterden fazla giriş yapılmasına izin verme
+        if updatedText.count > 10 {
+            // 10 karakterden fazla giriş yapılmasına izin verme
             return false
         }
         

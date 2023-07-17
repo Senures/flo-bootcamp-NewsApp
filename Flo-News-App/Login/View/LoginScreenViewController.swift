@@ -12,9 +12,7 @@ protocol LoginScreenViewControllerProtocol : AnyObject {
  //protocolleri weaki sadece classlara uygulanması gerekiyo,structlara değil.
     func setupUI()
     func showPassword()
-  /*  func setupUI()
-    func collectionViewSet()
-    func reloadCollectionView() */
+ 
 }
 
 final class LoginScreenViewController : UIViewController, LoginScreenViewControllerProtocol {
@@ -28,7 +26,6 @@ final class LoginScreenViewController : UIViewController, LoginScreenViewControl
     @IBOutlet weak var forgotPasBtn: UIButton!
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var showPassBtn: UIButton!
-    @IBOutlet weak var signApple: UIView!
     @IBOutlet weak var passwordField: UITextField!
     
     @IBOutlet weak var isLoading: UIActivityIndicatorView!
@@ -48,12 +45,19 @@ final class LoginScreenViewController : UIViewController, LoginScreenViewControl
         viewModel.viewDidLoad()
      
     }
-    
+    override func viewWillDisappear(_ animated: Bool) {
+          super.viewWillDisappear(animated)
+
+          // Sayfadan çıkıldığında tetxfield'ların içeriğini temizle
+        emailField.text = ""
+        passwordField.text = ""
+          
+      }
     func setupUI(){
         emailField.textColor = .black
         passwordField.textColor = .black
         loginBtn.layer.cornerRadius = 5
-        signApple.layer.cornerRadius = 5
+       
         passwordField.isSecureTextEntry = true
         
         isLoading.stopAnimating()
@@ -91,8 +95,8 @@ final class LoginScreenViewController : UIViewController, LoginScreenViewControl
         }
     }
     func showAlert(message: String) {
-        let alert = UIAlertController(title: "Uyarı", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Tamam", style: .default, handler: nil))
+        let alert = UIAlertController(title: "Warning", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         present(alert, animated: true, completion: nil)
     }
     
@@ -108,13 +112,13 @@ final class LoginScreenViewController : UIViewController, LoginScreenViewControl
         // email alanını kontrol ediyor boş  girmesin diye
         if let email = emailField.text {
             if email.isEmpty {
-                showAlert(message: "Lütfen email  gir")
+                showAlert(message: "Please enter your email")
             }
         }
         
         if let password = passwordField.text {
             if password.isEmpty {
-                showAlert(message: "Lütfen password  gir")
+                showAlert(message: "Please enter password")
             }
         }
         self.isLoading.isHidden = false
@@ -141,3 +145,4 @@ final class LoginScreenViewController : UIViewController, LoginScreenViewControl
     }
     
 }
+
