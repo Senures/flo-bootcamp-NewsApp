@@ -17,7 +17,7 @@ class ForgotPasswordViewController: UIViewController {
 
         isLoading.stopAnimating()
         isLoading.isHidden = true
-        sendMailBtn.layer.cornerRadius = 5
+        sendMailBtn.applyCornerRadius(5.0)
         // Do any additional setup after loading the view.
     }
     

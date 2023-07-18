@@ -25,6 +25,7 @@
 		0F5478F92A46277900251EE4 /* RegisterScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5478F82A46277900251EE4 /* RegisterScreenViewController.swift */; };
 		0F67A8BD2A4A1B9C00EC01B7 /* DetailScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F67A8BC2A4A1B9C00EC01B7 /* DetailScreenViewController.swift */; };
 		0F8E4ECA2A600B7C0081CD15 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 0F8E4EC92A600B7C0081CD15 /* SkeletonView */; };
+		0F8FA86B2A670E7200D92919 /* LoadingPageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8FA86A2A670E7200D92919 /* LoadingPageExtension.swift */; };
 		0F901D672A486DE400322287 /* SearchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D662A486DE400322287 /* SearchScreenViewController.swift */; };
 		0F901D6A2A48901B00322287 /* FavoriteScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D692A48901A00322287 /* FavoriteScreenViewController.swift */; };
 		0F901D6E2A48912F00322287 /* ProfileScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D6D2A48912F00322287 /* ProfileScreenViewController.swift */; };
@@ -82,6 +83,7 @@
 		0F5478F62A4618A700251EE4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0F5478F82A46277900251EE4 /* RegisterScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreenViewController.swift; sourceTree = "<group>"; };
 		0F67A8BC2A4A1B9C00EC01B7 /* DetailScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenViewController.swift; sourceTree = "<group>"; };
+		0F8FA86A2A670E7200D92919 /* LoadingPageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPageExtension.swift; sourceTree = "<group>"; };
 		0F901D662A486DE400322287 /* SearchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenViewController.swift; sourceTree = "<group>"; };
 		0F901D692A48901A00322287 /* FavoriteScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteScreenViewController.swift; sourceTree = "<group>"; };
 		0F901D6D2A48912F00322287 /* ProfileScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileScreenViewController.swift; sourceTree = "<group>"; };
@@ -329,6 +331,7 @@
 			children = (
 				0FADBA442A399D620059B6DA /* UIColor + Hexcode.swift */,
 				0FADBA472A39ABDF0059B6DA /* UIButton + Radius.swift */,
+				0F8FA86A2A670E7200D92919 /* LoadingPageExtension.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -552,6 +555,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0FBA96CA2A520E5200571854 /* FavoriteNewsModel.swift in Sources */,
+				0F8FA86B2A670E7200D92919 /* LoadingPageExtension.swift in Sources */,
 				0F94571C2A38A7E300DB1905 /* OnboardingViewController.swift in Sources */,
 				0F92E7702A48D9EE00D21D26 /* Constants.swift in Sources */,
 				0F94571F2A38AD3400DB1905 /* OnboardingModel.swift in Sources */,

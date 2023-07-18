@@ -31,7 +31,7 @@ class RegisterScreenViewController: UIViewController {
         passwordField.autocorrectionType = .no
         // Do any additional setup after loading the view.
         
-        registerBtn.layer.cornerRadius = 5
+        registerBtn.applyCornerRadius(5.0)
         
        indicator.stopAnimating()
        indicator.isHidden = true
@@ -128,12 +128,13 @@ class RegisterScreenViewController: UIViewController {
         let db = Firestore.firestore()
         
         let userDocument = db.collection("users").document()
-        
+        let currentUsers = Auth.auth().currentUser?.uid
         let userData: [String: Any] = [
             "username": username,
             "email": email,
             "password": password,
-            "phoneNumber" : phoneNumber
+            "phoneNumber" : phoneNumber,
+            "userId" : currentUsers
         ]
         
         userDocument.setData(userData) { error in
