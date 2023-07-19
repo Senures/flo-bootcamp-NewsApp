@@ -11,11 +11,8 @@ import Firebase
 class ProfileScreenViewController: UIViewController {
     
     @IBOutlet weak var signOutBtn: UIButton!
-    @IBOutlet weak var profileView: UIView!
-    
-   
-    @IBOutlet weak var email: UITextField!
-    
+    @IBOutlet weak var editBtn: UIButton!
+    @IBOutlet weak var emailLbl: UILabel!
     @IBOutlet weak var updateBtn: UIButton! {
         didSet {
             updateBtn.isHidden = true
@@ -26,13 +23,13 @@ class ProfileScreenViewController: UIViewController {
     @IBOutlet weak var userName: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-        profileView.backgroundColor = UIColor.black
-        profileView.layer.cornerRadius = 15.0
-        
+      
+        editBtn.backgroundColor = hexStringToUIColor(hex: "#FFa500")
+        updateBtn.backgroundColor = hexStringToUIColor(hex: "#FFa500")
+        editBtn.applyCornerRadius(20.0)
+        updateBtn.applyCornerRadius(20.0)
         signOutBtn.applyCornerRadius(5.0)
-        email.layer.borderColor = UIColor.gray.cgColor
-        email.layer.borderWidth = 1.0
-        email.layer.cornerRadius = 5.0
+       
         userName.layer.borderColor = UIColor.gray.cgColor
         userName.layer.borderWidth = 1.0
         userName.layer.cornerRadius = 5.0
@@ -86,12 +83,14 @@ class ProfileScreenViewController: UIViewController {
                 } else {
                     
                     print("Veri başarıyla güncellendi.")
+                    showSuccessAlert()
                     self.userName.isUserInteractionEnabled = false
                     self.phoneNumber.isUserInteractionEnabled = false
                     updateBtn.isHidden = true
-                    showSuccessAlert()
+                   
                     userName.layer.borderColor = UIColor.gray.cgColor
                     phoneNumber.layer.borderColor = UIColor.gray.cgColor
+                    signOutBtn.isHidden = false
                 }
             }
         }
@@ -120,18 +119,15 @@ class ProfileScreenViewController: UIViewController {
     }
    
     
-    
-    @IBAction func backBtn(_ sender: Any) {
-        self.dismiss(animated: true)
-    }
-    @IBAction func updateForm(_ sender: Any) {
+   
+    @IBAction func editBtnClick(_ sender: Any) {
         updateBtn.isHidden = false
-        userName.layer.borderColor = UIColor.white.cgColor
-        phoneNumber.layer.borderColor = UIColor.white.cgColor
+        userName.layer.borderColor = UIColor.systemYellow.cgColor
+        phoneNumber.layer.borderColor = UIColor.systemYellow.cgColor
         userName.isUserInteractionEnabled = true
         phoneNumber.isUserInteractionEnabled = true
+        signOutBtn.isHidden = true
     }
-    
     func getData(){
         print("GET DATA ÇALIŞTI")
         showActivityIndicator()
@@ -162,7 +158,7 @@ class ProfileScreenViewController: UIViewController {
                 if let emailF = data["email"] as? String {
                     DispatchQueue.main.async {
                         print("Kullanıcının email'i: \(emailF)")
-                        self.email.text = emailF
+                        self.emailLbl.text = emailF
                     }
                 }
                 if let phoneNumberF = data["phoneNumber"] as? String {

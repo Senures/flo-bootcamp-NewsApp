@@ -49,7 +49,6 @@ extension UIViewController {
         ActivityIndicator.container?.removeFromSuperview()
         ActivityIndicator.container = nil
         ActivityIndicator.activityIndicator = nil
-        
         view.isUserInteractionEnabled = true
     }
 }

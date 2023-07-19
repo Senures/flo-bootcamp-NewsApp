@@ -20,7 +20,7 @@ class RegisterScreenViewController: UIViewController {
     @IBAction func backBtn(_ sender: Any) {
         self.dismiss(animated: true)
     }
-    @IBOutlet weak var indicator: UIActivityIndicatorView!
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,8 +33,6 @@ class RegisterScreenViewController: UIViewController {
         
         registerBtn.applyCornerRadius(5.0)
         
-       indicator.stopAnimating()
-       indicator.isHidden = true
     }
     
     
@@ -58,7 +56,7 @@ class RegisterScreenViewController: UIViewController {
         
         // Name kontrolü
         if nameField.text?.isEmpty ?? true {
-                showAlert(message: "Please enter name")
+            showAlert(message: "Please enter name")
             
         }
         
@@ -89,26 +87,23 @@ class RegisterScreenViewController: UIViewController {
         }
         
         // Tüm alanlar geçerli, kaydetme işlemi yapılabilir
-        indicator.startAnimating()
-        indicator.isHidden = false
+        showActivityIndicator()
         Auth.auth().createUser(withEmail: emailField.text!, password: passwordField.text!) { [self] (authResult, error) in
             // Hesap oluşturulduğunda veya bir hata olduysa yapılacak işlemler burada gerçekleştirilir.
-
+            
             if error != nil {
-                indicator.stopAnimating()
-                indicator.isHidden = true
+                self.hideActivityIndicator()
                 self.alertMessage(titleInput:"Error" , messageInput: error?.localizedDescription ?? "Error")
             } else{
-             
+                
                 self.saveUserToFirestore(username: nameField.text! , email: emailField.text!, password: passwordField.text!, phoneNumber: numberField.text!)
-                indicator.stopAnimating()
-                indicator.isHidden = true
+                self.hideActivityIndicator()
                 let alert = UIAlertController(title:"Successful", message: "Save successful", preferredStyle: UIAlertController.Style.alert)
                 let okButton = UIAlertAction(title: "OK", style: UIAlertAction.Style.default,handler: nil)
                 alert.addAction(okButton)
                 self.performSegue(withIdentifier: "goLogin", sender: nil)
                 self.present(alert, animated: true)
-               // showAlert(message: "kaydetme işlemi başarılı")
+                // showAlert(message: "kaydetme işlemi başarılı")
                 
             }
             
@@ -169,11 +164,8 @@ extension RegisterScreenViewController:UITextFieldDelegate {
         guard let currentText = textField.text else { return true }
         
         let updatedText = (currentText as NSString).replacingCharacters(in: range, with: string)
-        
-       
-        
         if updatedText.count > 10 {
-            // 10 karakterden fazla giriş yapılmasına izin verme
+            
             return false
         }
         

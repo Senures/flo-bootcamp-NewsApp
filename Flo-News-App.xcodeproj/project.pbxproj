@@ -195,6 +195,13 @@
 			path = Detail;
 			sourceTree = "<group>";
 		};
+		0F8E91782A6860B1001ACA0E /* ResetPassword */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ResetPassword;
+			sourceTree = "<group>";
+		};
 		0F901D652A486DCD00322287 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -359,6 +366,7 @@
 		0FC333972A360265004A9CB6 /* Flo-News-App */ = {
 			isa = PBXGroup;
 			children = (
+				0F8E91782A6860B1001ACA0E /* ResetPassword */,
 				0F67A8BB2A4A1B7700EC01B7 /* Detail */,
 				0F92E7712A48DA3000D21D26 /* Models */,
 				0F901D6F2A48B80800322287 /* Service Client */,

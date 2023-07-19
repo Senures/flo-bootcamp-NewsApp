@@ -14,13 +14,10 @@ class HomeScreenViewController: UIViewController {
     
     @IBOutlet weak var greetingMessage: UILabel!
     @IBOutlet weak var topHeadCollectionView: UICollectionView!
-    
     @IBOutlet weak var trendCollectionView: UICollectionView!
-    
-    
     @IBOutlet weak var recommendCv: UICollectionView!
-    
     @IBOutlet weak var todayDateLbl: UILabel!
+    @IBOutlet weak var pageControl: UIPageControl!
     
     //topheadline listesi en bastaki collection view
     var topHeadList:[Article] = []
@@ -28,25 +25,28 @@ class HomeScreenViewController: UIViewController {
     var recommendationList:[Article] = []
     
     override func viewWillAppear(_ animated: Bool) {
-        
-        fetchTopHeadlines()
+     
         fetchTrendNews()
+        fetchTopHeadlines()
         fetchRecommendationNews()
+        
     }
     
-    func fetchTrendNews(){
+    private func fetchTrendNews(){
+        
+       showActivityIndicator()
         ApiClient.apiClient.fetchTrendNews{ response in
             if let articles = response.articles, !articles.isEmpty {
-                // Veriler mevcut, işlemleri gerçekleştir
+               
                 self.trendNewsList = articles
-                
+                self.hideActivityIndicator()
                 self.reloadCollectionView()
-                
-                //burada topheadline listesinin uzunlugu olmalıydı bu pagecontrol noktaları sayısı
+              
                 
                 self.pageControl.numberOfPages = self.topHeadList.count ?? 0
+                
             } else {
-                // Veriler boş, gerekli işlemleri yapma veya hata mesajı gösterme
+       
                 print("API'den veri alınamadı veya veri boş.")
             }
             
@@ -54,17 +54,19 @@ class HomeScreenViewController: UIViewController {
         }
     }
     
-    func fetchTopHeadlines(){
+    private func fetchTopHeadlines(){
+    
         ApiClient.apiClient.fetchTopHeadLines { response in
             if let articles = response.articles, !articles.isEmpty {
-                // Veriler mevcut, işlemleri gerçekleştir
+               
                 self.topHeadList = articles
+      
                 self.topHeadCollectionView.reloadData()
                 
                 self.recommendCv.reloadData()
           
             } else {
-                // Veriler boş, gerekli işlemleri yapma veya hata mesajı gösterme
+              
                 print("API'den veri alınamadı veya veri boş.")
             }
             
@@ -72,15 +74,17 @@ class HomeScreenViewController: UIViewController {
         }
     }
     
-    func fetchRecommendationNews(){
+    private func fetchRecommendationNews(){
+
         ApiClient.apiClient.fetchRecommendationNews { response in
             if let articles = response.articles, !articles.isEmpty {
-                // Veriler mevcut, işlemleri gerçekleştir
+          
                 self.recommendationList = articles
+              
                 self.recommendCv.reloadData()
-                
+            
             } else {
-                // Veriler boş, gerekli işlemleri yapma veya hata mesajı gösterme
+               
                 print("API'den veri alınamadı veya veri boş.")
             }
             
@@ -114,18 +118,13 @@ class HomeScreenViewController: UIViewController {
         
         pageControl.currentPage = 0
         
-        
-        
-        // Do any additional setup after loading the view.
+       
     }
     
     
     
-    @IBOutlet weak var pageControl: UIPageControl!
     
-    //bu fonk neden boş
-    @IBAction func pageControl(_ sender: Any) {
-    }
+   
     
     private func greetMessage(){
         // Şu anki tarih ve saat bilgisini alın
@@ -220,7 +219,7 @@ extension HomeScreenViewController : UICollectionViewDelegate, UICollectionViewD
             return CGSize(width:collectionView.frame.width, height: collectionView.frame.height)
         } else if collectionView == trendCollectionView {
             return CGSize(width:180, height: collectionView.frame.height)
-            // return CGSize(width: 185, height:230)
+           
         } else {
             return CGSize(width:collectionView.frame.width, height: collectionView.frame.height)
         }

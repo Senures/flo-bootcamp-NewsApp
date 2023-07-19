@@ -16,32 +16,29 @@ class ApiClient{
         print("apiclient calıstıııı")
     }
     
-
+    
     func fetchTopHeadLines(succesData: @escaping (NewsResponseModel) -> Void){
         let baseUrl = String(format: "%@%@%@",Constants.baseURL,"/top-headlines?sources=techcrunch&apiKey=",Constants.apiKey)
         AF.request(baseUrl, method:.get, encoding:JSONEncoding.default, headers: nil, interceptor: nil).response{
             (responseData) in
-            
             guard let data = responseData.data else { return }
-            
             do{
                 let topHeadlinesModel = try? JSONDecoder().decode(NewsResponseModel.self, from: data)
                 succesData(topHeadlinesModel!)
-               
-            } catch {
                 
+            } catch {
                 print("catch bloğu")
                 
             }
-        
+            
         }
         
     }
     
     
-  //TREND NEWWSS APİİ CEKİLDİGİ YER
+    //TREND NEWWSS APİİ CEKİLDİGİ YER
     func fetchTrendNews(succesData: @escaping (NewsResponseModel) -> Void){
-  
+        
         let baseUrl = String(format: "%@%@%@",Constants.baseURL,"/top-headlines?country=us&category=business&apiKey=",Constants.apiKey)
         AF.request(baseUrl, method:.get, encoding:JSONEncoding.default, headers: nil, interceptor: nil).response{
             (responseData) in
@@ -57,14 +54,14 @@ class ApiClient{
                 print("catch bloğu")
                 
             }
-        
+            
         }
         
     }
     
     //recommendation list
     func fetchRecommendationNews(succesData: @escaping (NewsResponseModel) -> Void){
-  
+        
         let baseUrl = String(format: "%@%@%@",Constants.baseURL,"/everything?domains=wsj.com&apiKey=",Constants.apiKey)
         AF.request(baseUrl, method:.get, encoding:JSONEncoding.default, headers: nil, interceptor: nil).response{
             (responseData) in
@@ -80,39 +77,29 @@ class ApiClient{
                 print("catch bloğu")
                 
             }
-        
+            
         }
         
     }
     
     //search yapılınca çalışan fonk
     func search(params:String, succesData: @escaping (NewsResponseModel) -> Void)  {
-              
-      print("searchhhh")
+        
         let baseUrl = String(format: "%@%@%@%@%@",Constants.baseURL,"/everything?q=", String(params),"&apiKey=",Constants.apiKey)
-              //string birleştirme
-          print(baseUrl)
-              AF.request(baseUrl, method:.get, encoding:JSONEncoding.default, headers: nil, interceptor: nil).response{
-                  (responseData) in
-              
-                  guard let data = responseData.data else { return }
-                  
-                  
-                  do{
-                      
-                      let data = try JSONDecoder().decode(NewsResponseModel.self, from: data)
-                      succesData(data)
-                    //  debugPrint(data)
-                      
-                  } catch {
-                  
-                      print("catch bloğu")
-                  }
-                  
-                  
-                  
-              }
-          }
+        
+        AF.request(baseUrl, method:.get, encoding:JSONEncoding.default, headers: nil, interceptor: nil).response{
+            (responseData) in
+            guard let data = responseData.data else { return }
+            do{
+                
+                let data = try JSONDecoder().decode(NewsResponseModel.self, from: data)
+                succesData(data)
+                
+            } catch {
+                print("catch bloğu")
+            }
+        }
+    }
     
     
 }

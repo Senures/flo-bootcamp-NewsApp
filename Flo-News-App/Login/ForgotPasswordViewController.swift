@@ -9,16 +9,14 @@ import UIKit
 import Firebase
 
 class ForgotPasswordViewController: UIViewController {
-
+    
     @IBOutlet weak var sendMailBtn: UIButton!
     @IBOutlet weak var email: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        isLoading.stopAnimating()
-        isLoading.isHidden = true
+       
         sendMailBtn.applyCornerRadius(5.0)
-        // Do any additional setup after loading the view.
+        
     }
     
     @IBAction func sendMail(_ sender: Any) {
@@ -44,28 +42,26 @@ class ForgotPasswordViewController: UIViewController {
     
     
     func resetPassword(email:String) {
-        print("emailllllll :\(email)")
-        isLoading.startAnimating()
-        isLoading.isHidden = false
+        
+        showActivityIndicator()
         Auth.auth().sendPasswordReset(withEmail:email) { [self] error in
             if let error = error {
-                self.isLoading.stopAnimating()
-                self.isLoading.isHidden = true
+                self.hideActivityIndicator()
+               
                 print("Şifre sıfırlama e-postası gönderilirken bir hata oluştu: \(error.localizedDescription)")
                 self.alertMessage(titleInput:"Error" , messageInput: error.localizedDescription ?? "Error")
-     // Hata durumunda kullanıcıya uyarı gösterme veya ilgili işlemleri gerçekleştirme
+                
             } else {
                 
-                isLoading.stopAnimating()
-                isLoading.isHidden = true
+                self.hideActivityIndicator()
                 print("Şifre sıfırlama e-postası gönderildi")
                 let alert = UIAlertController(title: "Successful", message: "Password reset email sent", preferredStyle: .alert)
                 let okAction = UIAlertAction(title: "OK", style: .default) { (action) in
-                    self.dismiss(animated: true) // Geri dönme işlevini çağır
+                    self.dismiss(animated: true)
                 }
                 alert.addAction(okAction)
                 present(alert, animated: true, completion: nil)
-    
+                
             }
         }
     }
@@ -76,7 +72,6 @@ class ForgotPasswordViewController: UIViewController {
         let alert = UIAlertController(title:titleInput, message: messageInput, preferredStyle: UIAlertController.Style.alert)
         let okButton = UIAlertAction(title: "OK", style: UIAlertAction.Style.default,handler: nil)
         alert.addAction(okButton)
-        
         self.present(alert, animated: true)
     }
     
