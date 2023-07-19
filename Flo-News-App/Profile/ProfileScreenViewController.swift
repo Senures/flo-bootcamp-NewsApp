@@ -30,6 +30,15 @@ class ProfileScreenViewController: UIViewController {
         profileView.layer.cornerRadius = 15.0
         
         signOutBtn.applyCornerRadius(5.0)
+        email.layer.borderColor = UIColor.gray.cgColor
+        email.layer.borderWidth = 1.0
+        email.layer.cornerRadius = 5.0
+        userName.layer.borderColor = UIColor.gray.cgColor
+        userName.layer.borderWidth = 1.0
+        userName.layer.cornerRadius = 5.0
+        phoneNumber.layer.borderColor = UIColor.gray.cgColor
+        phoneNumber.layer.borderWidth = 1.0
+        phoneNumber.layer.cornerRadius = 5.0
         
         getData()
         
@@ -81,6 +90,8 @@ class ProfileScreenViewController: UIViewController {
                     self.phoneNumber.isUserInteractionEnabled = false
                     updateBtn.isHidden = true
                     showSuccessAlert()
+                    userName.layer.borderColor = UIColor.gray.cgColor
+                    phoneNumber.layer.borderColor = UIColor.gray.cgColor
                 }
             }
         }
@@ -115,7 +126,8 @@ class ProfileScreenViewController: UIViewController {
     }
     @IBAction func updateForm(_ sender: Any) {
         updateBtn.isHidden = false
-       
+        userName.layer.borderColor = UIColor.white.cgColor
+        phoneNumber.layer.borderColor = UIColor.white.cgColor
         userName.isUserInteractionEnabled = true
         phoneNumber.isUserInteractionEnabled = true
     }
