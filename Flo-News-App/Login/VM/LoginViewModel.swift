@@ -13,7 +13,6 @@ import Firebase
 protocol LoginViewModelProtocol {
     var view : LoginScreenViewControllerProtocol? { get set }
     func viewDidLoad()
-    
 }
 
 final class LoginViewModel : LoginViewModelProtocol {

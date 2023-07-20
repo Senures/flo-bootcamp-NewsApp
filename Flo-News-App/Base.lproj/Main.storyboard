@@ -717,23 +717,23 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cEQ-nF-N8j">
-                                <rect key="frame" x="106.66666666666669" y="271.66666666666669" width="180" height="45"/>
+                                <rect key="frame" x="121.66666666666669" y="271.66666666666669" width="150" height="35"/>
                                 <color key="backgroundColor" systemColor="systemYellowColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="45" id="Yo5-Wc-CV4"/>
-                                    <constraint firstAttribute="width" constant="180" id="gFG-A0-y7Y"/>
+                                    <constraint firstAttribute="height" constant="35" id="Yo5-Wc-CV4"/>
+                                    <constraint firstAttribute="width" constant="150" id="gFG-A0-y7Y"/>
                                 </constraints>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="plain" title="Edit Profile">
-                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="16"/>
+                                    <fontDescription key="titleFontDescription" type="system" weight="semibold" pointSize="14"/>
                                 </buttonConfiguration>
                                 <connections>
                                     <action selector="editBtnClick:" destination="r2Z-ID-y53" eventType="touchUpInside" id="dUj-BQ-4Gh"/>
                                 </connections>
                             </button>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="vF3-WK-YeS">
-                                <rect key="frame" x="30" y="346.66666666666669" width="333" height="203.66666666666669"/>
+                                <rect key="frame" x="30" y="336.66666666666669" width="333" height="203.66666666666669"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Username" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3lH-T3-AdC">
                                         <rect key="frame" x="0.0" y="0.0" width="80.333333333333329" height="20.333333333333332"/>
@@ -772,7 +772,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gf1-fi-jbZ">
-                                <rect key="frame" x="106.66666666666669" y="580.33333333333337" width="180" height="45"/>
+                                <rect key="frame" x="106.66666666666669" y="570.33333333333337" width="180" height="45"/>
                                 <color key="backgroundColor" red="1" green="0.64705882349999999" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="180" id="29Z-hf-pkH"/>
@@ -1079,10 +1079,12 @@
                     <connections>
                         <outlet property="greetingMessage" destination="MRX-Q2-CM4" id="OMP-zc-OcK"/>
                         <outlet property="pageControl" destination="Hvp-ge-q47" id="rVr-M4-X0c"/>
+                        <outlet property="recommandationLbl" destination="QCW-la-RKs" id="37W-21-E7Q"/>
                         <outlet property="recommendCv" destination="PPv-zc-gdE" id="R1b-kZ-aAj"/>
                         <outlet property="todayDateLbl" destination="1ZA-BY-yYM" id="mL8-4C-TZ3"/>
                         <outlet property="topHeadCollectionView" destination="uEV-Mz-Ayj" id="m4I-qa-n96"/>
                         <outlet property="trendCollectionView" destination="x2i-SD-SDe" id="4Ob-E8-Xvy"/>
+                        <outlet property="trendingNewsLbl" destination="hz7-BC-Zf4" id="8tL-ld-ezr"/>
                         <segue destination="EiY-O9-aE7" kind="presentation" identifier="goDetail" modalPresentationStyle="fullScreen" id="1Id-Ac-htb"/>
                     </connections>
                 </viewController>
@@ -1369,7 +1371,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Tdo-Ba-fcf"/>
+        <segue reference="1Id-Ac-htb"/>
         <segue reference="szL-np-i0V"/>
     </inferredMetricsTieBreakers>
     <resources>

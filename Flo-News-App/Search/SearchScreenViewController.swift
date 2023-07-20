@@ -116,7 +116,7 @@ extension SearchScreenViewController : UITableViewDelegate,UITableViewDataSource
         
         if !(searching ??  false){
             cell.lbl.text = searchList?[indexPath.row].title
-            cell.img.kf.setImage(with: URL(string:searchList?[indexPath.row].urlToImage ?? ""), placeholder:UIImage(named:"image"))
+            cell.img.kf.setImage(with: URL(string:searchList?[indexPath.row].urlToImage ??  Constants.emptyUrlImage), placeholder:UIImage(named:"image"))
             cell.dscriptionLbl.text = searchList?[indexPath.row].description
         } else {
             cell.lbl.text = filteredArticles[indexPath.row].title
@@ -255,7 +255,7 @@ extension SearchScreenViewController : UISearchBarDelegate  {
     
     // Arama işlemini gerçekleştiren fonksiyonu çağırın
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("semaaa:\(searchText)")
+       
         if let searchText = searchBar.text, !searchText.isEmpty {
             showActivityIndicator()
             ApiClient.apiClient.search(params: searchText) { response in
@@ -289,7 +289,7 @@ extension SearchScreenViewController : UISearchBarDelegate  {
             return searchList!
         } else {
             let filteredArticles = searchList?.filter { $0.title!.contains(searchText) }
-            print("eda:\(searchText)")
+           
             return filteredArticles ?? []
         }
         

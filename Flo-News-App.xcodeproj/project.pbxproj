@@ -25,6 +25,7 @@
 		0F5478F92A46277900251EE4 /* RegisterScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5478F82A46277900251EE4 /* RegisterScreenViewController.swift */; };
 		0F67A8BD2A4A1B9C00EC01B7 /* DetailScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F67A8BC2A4A1B9C00EC01B7 /* DetailScreenViewController.swift */; };
 		0F8E4ECA2A600B7C0081CD15 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 0F8E4EC92A600B7C0081CD15 /* SkeletonView */; };
+		0F8E917A2A693531001ACA0E /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8E91792A693531001ACA0E /* ForgotPasswordViewModel.swift */; };
 		0F8FA86B2A670E7200D92919 /* LoadingPageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8FA86A2A670E7200D92919 /* LoadingPageExtension.swift */; };
 		0F901D672A486DE400322287 /* SearchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D662A486DE400322287 /* SearchScreenViewController.swift */; };
 		0F901D6A2A48901B00322287 /* FavoriteScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D692A48901A00322287 /* FavoriteScreenViewController.swift */; };
@@ -58,6 +59,8 @@
 		0FC333B32A360267004A9CB6 /* Flo_News_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC333B22A360267004A9CB6 /* Flo_News_AppTests.swift */; };
 		0FC333BD2A360267004A9CB6 /* Flo_News_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC333BC2A360267004A9CB6 /* Flo_News_AppUITests.swift */; };
 		0FC333BF2A360267004A9CB6 /* Flo_News_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FC333BE2A360267004A9CB6 /* Flo_News_AppUITestsLaunchTests.swift */; };
+		0FDD18352A69CEFB0098E1D8 /* RegisterScreenViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDD18342A69CEFB0098E1D8 /* RegisterScreenViewModel.swift */; };
+		0FDD18382A69E3650098E1D8 /* AlertUtils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0FDD18372A69E3650098E1D8 /* AlertUtils.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -83,6 +86,7 @@
 		0F5478F62A4618A700251EE4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0F5478F82A46277900251EE4 /* RegisterScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreenViewController.swift; sourceTree = "<group>"; };
 		0F67A8BC2A4A1B9C00EC01B7 /* DetailScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailScreenViewController.swift; sourceTree = "<group>"; };
+		0F8E91792A693531001ACA0E /* ForgotPasswordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForgotPasswordViewModel.swift; sourceTree = "<group>"; };
 		0F8FA86A2A670E7200D92919 /* LoadingPageExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingPageExtension.swift; sourceTree = "<group>"; };
 		0F901D662A486DE400322287 /* SearchScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchScreenViewController.swift; sourceTree = "<group>"; };
 		0F901D692A48901A00322287 /* FavoriteScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteScreenViewController.swift; sourceTree = "<group>"; };
@@ -118,6 +122,8 @@
 		0FC333B82A360267004A9CB6 /* Flo-News-AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Flo-News-AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		0FC333BC2A360267004A9CB6 /* Flo_News_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flo_News_AppUITests.swift; sourceTree = "<group>"; };
 		0FC333BE2A360267004A9CB6 /* Flo_News_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Flo_News_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		0FDD18342A69CEFB0098E1D8 /* RegisterScreenViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterScreenViewModel.swift; sourceTree = "<group>"; };
+		0FDD18372A69E3650098E1D8 /* AlertUtils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertUtils.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -173,7 +179,6 @@
 			children = (
 				0F937C552A5D8AC300012DC5 /* VM */,
 				0F937C542A5D8AB900012DC5 /* View */,
-				0F5478D72A444B2C00251EE4 /* ForgotPasswordViewController.swift */,
 			);
 			path = Login;
 			sourceTree = "<group>";
@@ -181,7 +186,8 @@
 		0F5478D92A44606F00251EE4 /* Register */ = {
 			isa = PBXGroup;
 			children = (
-				0F5478F82A46277900251EE4 /* RegisterScreenViewController.swift */,
+				0FDD183A2A69F3E60098E1D8 /* Vİew */,
+				0FDD18392A69F3D90098E1D8 /* VM */,
 			);
 			path = Register;
 			sourceTree = "<group>";
@@ -198,8 +204,26 @@
 		0F8E91782A6860B1001ACA0E /* ResetPassword */ = {
 			isa = PBXGroup;
 			children = (
+				0F8E917C2A69700D001ACA0E /* View */,
+				0F8E917B2A697005001ACA0E /* VM */,
 			);
 			path = ResetPassword;
+			sourceTree = "<group>";
+		};
+		0F8E917B2A697005001ACA0E /* VM */ = {
+			isa = PBXGroup;
+			children = (
+				0F8E91792A693531001ACA0E /* ForgotPasswordViewModel.swift */,
+			);
+			path = VM;
+			sourceTree = "<group>";
+		};
+		0F8E917C2A69700D001ACA0E /* View */ = {
+			isa = PBXGroup;
+			children = (
+				0F5478D72A444B2C00251EE4 /* ForgotPasswordViewController.swift */,
+			);
+			path = View;
 			sourceTree = "<group>";
 		};
 		0F901D652A486DCD00322287 /* Search */ = {
@@ -366,6 +390,7 @@
 		0FC333972A360265004A9CB6 /* Flo-News-App */ = {
 			isa = PBXGroup;
 			children = (
+				0FDD18362A69E34F0098E1D8 /* Helpers */,
 				0F8E91782A6860B1001ACA0E /* ResetPassword */,
 				0F67A8BB2A4A1B7700EC01B7 /* Detail */,
 				0F92E7712A48DA3000D21D26 /* Models */,
@@ -404,6 +429,31 @@
 				0FC333BE2A360267004A9CB6 /* Flo_News_AppUITestsLaunchTests.swift */,
 			);
 			path = "Flo-News-AppUITests";
+			sourceTree = "<group>";
+		};
+		0FDD18362A69E34F0098E1D8 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				0FDD18372A69E3650098E1D8 /* AlertUtils.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		0FDD18392A69F3D90098E1D8 /* VM */ = {
+			isa = PBXGroup;
+			children = (
+				0FDD18342A69CEFB0098E1D8 /* RegisterScreenViewModel.swift */,
+			);
+			path = VM;
+			sourceTree = "<group>";
+		};
+		0FDD183A2A69F3E60098E1D8 /* Vİew */ = {
+			isa = PBXGroup;
+			children = (
+				0F5478F82A46277900251EE4 /* RegisterScreenViewController.swift */,
+			);
+			name = "Vİew";
+			path = "Vİew";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -568,6 +618,7 @@
 				0F92E7702A48D9EE00D21D26 /* Constants.swift in Sources */,
 				0F94571F2A38AD3400DB1905 /* OnboardingModel.swift in Sources */,
 				0F92E7632A48D0BE00D21D26 /* TopHeadlineCollectionViewCell.swift in Sources */,
+				0F8E917A2A693531001ACA0E /* ForgotPasswordViewModel.swift in Sources */,
 				0F901D6A2A48901B00322287 /* FavoriteScreenViewController.swift in Sources */,
 				0F93B6392A49B53F0069F6ED /* RecommendCollectionViewCell.swift in Sources */,
 				0F67A8BD2A4A1B9C00EC01B7 /* DetailScreenViewController.swift in Sources */,
@@ -581,6 +632,7 @@
 				0FBA96CC2A52100300571854 /* FavoriteCell.swift in Sources */,
 				0F5478D82A444B2C00251EE4 /* ForgotPasswordViewController.swift in Sources */,
 				0F94DF1F2A4AF7E5001C8E82 /* WebViewController.swift in Sources */,
+				0FDD18382A69E3650098E1D8 /* AlertUtils.swift in Sources */,
 				0F92E76D2A48D94700D21D26 /* ApiClient.swift in Sources */,
 				0FC3339B2A360265004A9CB6 /* SceneDelegate.swift in Sources */,
 				0F937C572A5D8B0400012DC5 /* LoginViewModel.swift in Sources */,
@@ -589,6 +641,7 @@
 				0F9457222A38C51D00DB1905 /* OnboardingCollectionViewCell.swift in Sources */,
 				0F93B6372A49908F0069F6ED /* TrendCollectionViewCell.swift in Sources */,
 				0F901D672A486DE400322287 /* SearchScreenViewController.swift in Sources */,
+				0FDD18352A69CEFB0098E1D8 /* RegisterScreenViewModel.swift in Sources */,
 				0F5478F92A46277900251EE4 /* RegisterScreenViewController.swift in Sources */,
 				0FADBA482A39ABDF0059B6DA /* UIButton + Radius.swift in Sources */,
 			);

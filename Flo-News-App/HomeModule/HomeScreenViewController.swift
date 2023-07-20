@@ -15,21 +15,24 @@ class HomeScreenViewController: UIViewController {
     @IBOutlet weak var greetingMessage: UILabel!
     @IBOutlet weak var topHeadCollectionView: UICollectionView!
     @IBOutlet weak var trendCollectionView: UICollectionView!
+    @IBOutlet weak var trendingNewsLbl: UILabel!
+    @IBOutlet weak var recommandationLbl: UILabel!
     @IBOutlet weak var recommendCv: UICollectionView!
     @IBOutlet weak var todayDateLbl: UILabel!
     @IBOutlet weak var pageControl: UIPageControl!
     
+    //apide istek sınırını aşınca ekranda  gösterilicek label
+    let emptyData = UILabel()
     //topheadline listesi en bastaki collection view
     var topHeadList:[Article] = []
     var trendNewsList:[Article] = []
     var recommendationList:[Article] = []
     
     override func viewWillAppear(_ animated: Bool) {
-     
         fetchTrendNews()
         fetchTopHeadlines()
         fetchRecommendationNews()
-        
+    
     }
     
     private func fetchTrendNews(){
@@ -46,7 +49,8 @@ class HomeScreenViewController: UIViewController {
                 self.pageControl.numberOfPages = self.topHeadList.count ?? 0
                 
             } else {
-       
+                self.hideActivityIndicator()
+                self.emptyDataVisbile()
                 print("API'den veri alınamadı veya veri boş.")
             }
             
@@ -66,7 +70,7 @@ class HomeScreenViewController: UIViewController {
                 self.recommendCv.reloadData()
           
             } else {
-              
+                self.emptyDataVisbile()
                 print("API'den veri alınamadı veya veri boş.")
             }
             
@@ -84,7 +88,7 @@ class HomeScreenViewController: UIViewController {
                 self.recommendCv.reloadData()
             
             } else {
-               
+                self.emptyDataVisbile()
                 print("API'den veri alınamadı veya veri boş.")
             }
             
@@ -92,6 +96,40 @@ class HomeScreenViewController: UIViewController {
         }
     }
     
+    
+    private func emptyDataHidden(){
+        // Label'i oluşturun
+        
+        emptyData.text = "Data could not be loaded"
+        emptyData.textColor = UIColor.systemOrange
+        emptyData.textAlignment = .center
+        emptyData.font = UIFont.systemFont(ofSize: 22)
+        emptyData.sizeToFit()
+        
+        // Label'in boyutunu ve konumunu belirleyin
+        let screenWidth = view.frame.width
+        let screenHeight = view.frame.height
+        // Label'in konumunu belirleyin (ekranın ortasında)
+        emptyData.center = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
+        emptyData.isHidden = true
+        // Label'i görünüme ekleyin
+        view.addSubview(emptyData)
+    }
+    
+    
+    //veriler yoksa ekranda gözükcekler
+    private func emptyDataVisbile(){
+        
+     
+        topHeadCollectionView.isHidden = true
+        trendCollectionView.isHidden = true
+        recommendCv.isHidden = true
+        recommandationLbl.isHidden = true
+        trendingNewsLbl.isHidden = true
+        pageControl.isHidden = true
+        emptyData.isHidden = false
+        
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -113,8 +151,8 @@ class HomeScreenViewController: UIViewController {
         
         todayDate()
         greetMessage()
-        
-        
+        //veriler gelmedigi zaman ekranda gösterilicek label
+        emptyDataHidden()
         
         pageControl.currentPage = 0
         
@@ -188,12 +226,12 @@ extension HomeScreenViewController : UICollectionViewDelegate, UICollectionViewD
         if collectionView == topHeadCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier:"topHeadCV", for: indexPath) as! TopHeadlineCollectionViewCell
             
-            cell.image.kf.setImage(with: URL(string: topHeadList[indexPath.row].urlToImage ?? ""), placeholder:UIImage(named:"image"))
+            cell.image.kf.setImage(with: URL(string: topHeadList[indexPath.row].urlToImage ??  Constants.emptyUrlImage), placeholder:UIImage(named:"image"))
             cell.image.layer.cornerRadius = 10
             return cell
         } else if  collectionView == trendCollectionView {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "trendCell", for: indexPath) as! TrendCollectionViewCell
-            cell.img.kf.setImage(with: URL(string: trendNewsList[indexPath.row].urlToImage ?? ""), placeholder:UIImage(named:"image"))
+            cell.img.kf.setImage(with: URL(string: trendNewsList[indexPath.row].urlToImage ??  Constants.emptyUrlImage), placeholder:UIImage(named:"image"))
             cell.lbl.text = trendNewsList[indexPath.row].title
             cell.sourceLbl.text = trendNewsList[indexPath.row].source?.name ?? "The Wall Street"
             cell.img.layer.cornerRadius = 5
@@ -204,7 +242,7 @@ extension HomeScreenViewController : UICollectionViewDelegate, UICollectionViewD
             
         } else if  collectionView == recommendCv {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "recommendCell", for: indexPath) as! RecommendCollectionViewCell
-            cell.img.kf.setImage(with: URL(string: recommendationList[indexPath.row].urlToImage ?? ""), placeholder:UIImage(named:"image"))
+            cell.img.kf.setImage(with: URL(string: recommendationList[indexPath.row].urlToImage ??  Constants.emptyUrlImage), placeholder:UIImage(named:"image"))
             cell.img.layer.cornerRadius = 5
             cell.title.text = recommendationList[indexPath.row].title
             return cell

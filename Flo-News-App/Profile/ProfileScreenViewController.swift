@@ -23,13 +23,13 @@ class ProfileScreenViewController: UIViewController {
     @IBOutlet weak var userName: UITextField!
     override func viewDidLoad() {
         super.viewDidLoad()
-      
+        
         editBtn.backgroundColor = hexStringToUIColor(hex: "#FFa500")
         updateBtn.backgroundColor = hexStringToUIColor(hex: "#FFa500")
-        editBtn.applyCornerRadius(20.0)
+        editBtn.applyCornerRadius(15.0)
         updateBtn.applyCornerRadius(20.0)
         signOutBtn.applyCornerRadius(5.0)
-       
+        
         userName.layer.borderColor = UIColor.gray.cgColor
         userName.layer.borderWidth = 1.0
         userName.layer.cornerRadius = 5.0
@@ -47,35 +47,35 @@ class ProfileScreenViewController: UIViewController {
         showActivityIndicator()
         // Firestore bağlantısı
         let db = Firestore.firestore()
-
+        
         // Kullanıcının kimliği (örnek olarak, oturum açan kullanıcının kimliği)
         guard let userId = Auth.auth().currentUser?.uid else {
             print("Kullanıcı oturum açmamış.")
             return
         }
-
+        
         // Güncellemek istediğiniz veriyi alın
         let usersRef = db.collection("users")
-
+        
         usersRef.whereField("userId", isEqualTo: userId).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Sorgu hatası: \(error.localizedDescription)")
                 return
             }
-
+            
             guard let documents = querySnapshot?.documents else {
                 print("Belge yok")
                 return
             }
-
+            
             // Sorgu sonucu elde edilen belgeleri alıyoruz (Bu örnekte sadece bir belgeyi alıyoruz)
             let document = documents[0]
-
+            
             // Güncellemek istediğiniz veriyi hazırlayın
             var updatedData = document.data()
             updatedData["username"] = self.userName.text
             updatedData["phoneNumber"] = self.phoneNumber.text
-
+            
             // Veriyi güncelle
             usersRef.document(document.documentID).setData(updatedData) { [self] error in
                 if let error = error {
@@ -87,7 +87,7 @@ class ProfileScreenViewController: UIViewController {
                     self.userName.isUserInteractionEnabled = false
                     self.phoneNumber.isUserInteractionEnabled = false
                     updateBtn.isHidden = true
-                   
+                    
                     userName.layer.borderColor = UIColor.gray.cgColor
                     phoneNumber.layer.borderColor = UIColor.gray.cgColor
                     signOutBtn.isHidden = false
@@ -107,9 +107,30 @@ class ProfileScreenViewController: UIViewController {
         }
     }
     @IBAction func signOutClick(_ sender: Any) {
+        
+        showLogoutAlert()
+
+    }
+    //cıkıs yapmak istediginizden emin misiniz alerti
+    func showLogoutAlert() {
+        let alert = UIAlertController(title: "Flo News App", message: "Are you sure you want to log out?", preferredStyle: .alert)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        alert.addAction(cancelAction)
+        
+        let logoutAction = UIAlertAction(title: "Log Out", style: .default) { [weak self] _ in
+            self?.performLogout()
+        }
+        alert.addAction(logoutAction)
+        
+        present(alert, animated: true, completion: nil)
+    }
+    
+    func performLogout() {
+        showActivityIndicator()
         do {
             try Auth.auth().signOut()
-           
+            self.hideActivityIndicator()
             let storyboard = UIStoryboard(name: "Main", bundle: nil)
             let loginController = storyboard.instantiateViewController(withIdentifier: "LoginScreenViewController") as! LoginScreenViewController
             UIApplication.shared.windows.first?.rootViewController = loginController
@@ -117,9 +138,8 @@ class ProfileScreenViewController: UIViewController {
             print("Oturum kapatma hatası: \(error.localizedDescription)")
         }
     }
-   
     
-   
+    
     @IBAction func editBtnClick(_ sender: Any) {
         updateBtn.isHidden = false
         userName.layer.borderColor = UIColor.systemYellow.cgColor
@@ -170,7 +190,7 @@ class ProfileScreenViewController: UIViewController {
             }
             self.hideActivityIndicator()
         }
-     
+        
     }
 }
 

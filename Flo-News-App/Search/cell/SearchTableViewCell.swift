@@ -9,19 +9,6 @@ import UIKit
 
 class SearchTableViewCell: UITableViewCell {
     
-    /*  var contentInsets: UIEdgeInsets = .zero {
-           didSet {
-               setNeedsLayout() // Layout yenileme isteği gönder
-           }
-       }
-
-       override func layoutSubviews() {
-           super.layoutSubviews()
-
-           // Hücre içeriğinin (contentView) kenar boşluklarını ayarla
-           contentView.frame = contentView.frame.inset(by: contentInsets)
-       }*/
-
     @IBOutlet weak var lbl: UILabel!
     
     @IBOutlet weak var img: UIImageView! {
@@ -35,9 +22,6 @@ class SearchTableViewCell: UITableViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        // SkeletonView ayarları
-       // contentView.isSkeletonable = true
-       // contentView.showAnimatedSkeleton()
      
     }
 

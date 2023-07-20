@@ -125,7 +125,7 @@ extension FavoriteScreenViewController: UITableViewDelegate,UITableViewDataSourc
         let cell = tableView.dequeueReusableCell(withIdentifier:"favCell", for: indexPath) as! FavoriteCell
         
         cell.title.text = favoriteList[indexPath.row].title
-        cell.img.kf.setImage(with: URL(string:favoriteList[indexPath.row].urlToImage ?? ""), placeholder:UIImage(named:"image"))
+        cell.img.kf.setImage(with: URL(string:favoriteList[indexPath.row].urlToImage ??  Constants.emptyUrlImage), placeholder:UIImage(named:"image"))
         cell.descriptionLbl.text = favoriteList[indexPath.row].description
         return cell
         
