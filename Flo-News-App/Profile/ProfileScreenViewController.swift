@@ -19,10 +19,18 @@ class ProfileScreenViewController: UIViewController {
         }
     }
     @IBOutlet weak var phoneNumber: UITextField!
-    
     @IBOutlet weak var userName: UITextField!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        setUI()
+        getData()
+        
+    }
+    
+    private func setUI(){
         
         editBtn.backgroundColor = hexStringToUIColor(hex: "#FFa500")
         updateBtn.backgroundColor = hexStringToUIColor(hex: "#FFa500")
@@ -36,27 +44,17 @@ class ProfileScreenViewController: UIViewController {
         phoneNumber.layer.borderColor = UIColor.gray.cgColor
         phoneNumber.layer.borderWidth = 1.0
         phoneNumber.layer.cornerRadius = 5.0
-        
-        getData()
-        
     }
     
-    
+    //MARK: data güncelleme işlemi
     @IBAction func updateBtnClick(_ sender: Any) {
-        
         showActivityIndicator()
-        // Firestore bağlantısı
         let db = Firestore.firestore()
-        
-        // Kullanıcının kimliği (örnek olarak, oturum açan kullanıcının kimliği)
         guard let userId = Auth.auth().currentUser?.uid else {
             print("Kullanıcı oturum açmamış.")
             return
         }
-        
-        // Güncellemek istediğiniz veriyi alın
         let usersRef = db.collection("users")
-        
         usersRef.whereField("userId", isEqualTo: userId).getDocuments { (querySnapshot, error) in
             if let error = error {
                 print("Sorgu hatası: \(error.localizedDescription)")
@@ -68,10 +66,7 @@ class ProfileScreenViewController: UIViewController {
                 return
             }
             
-            // Sorgu sonucu elde edilen belgeleri alıyoruz (Bu örnekte sadece bir belgeyi alıyoruz)
             let document = documents[0]
-            
-            // Güncellemek istediğiniz veriyi hazırlayın
             var updatedData = document.data()
             updatedData["username"] = self.userName.text
             updatedData["phoneNumber"] = self.phoneNumber.text
@@ -153,7 +148,6 @@ class ProfileScreenViewController: UIViewController {
         showActivityIndicator()
         let db = Firestore.firestore()
         let userDocument = db.collection("users").document()
-        print("1111")
         let userId = Auth.auth().currentUser?.uid
         db.collection("users").whereField("userId", isEqualTo:userId).getDocuments { (querySnapshot, error) in
             if let error = error {

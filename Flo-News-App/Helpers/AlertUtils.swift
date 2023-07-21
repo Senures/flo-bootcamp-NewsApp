@@ -10,6 +10,7 @@ import UIKit
 
 // MARK: Tekrarlayan alertleri bir classta toplamak amacıyla
 class AlertUtils {
+    
     static func showAlert(from viewController: UIViewController, withMessage message: String) {
         let alert = UIAlertController(title: "Warning", message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))

@@ -10,19 +10,7 @@ import CoreData
 
 class FavoriteScreenViewController: UIViewController {
     
-    @IBAction func deleteBtnClick(_ sender: Any) {
-        let alertController = UIAlertController(title: "Silme İşlemi", message: "Tüm verileri silmek istediğinize emin misiniz?", preferredStyle: .alert)
-            
-            let cancelAction = UIAlertAction(title: "Vazgeç", style: .cancel, handler: nil)
-            alertController.addAction(cancelAction)
-            
-            let deleteAction = UIAlertAction(title: "Sil", style: .destructive) { (_) in
-                self.deleteAllData()
-            }
-            alertController.addAction(deleteAction)
-            
-            present(alertController, animated: true, completion: nil)
-    }
+    
     @IBOutlet weak var deleteBtn: UIButton!
     @IBOutlet weak var favoriteTableView: UITableView!
     @IBOutlet weak var emptyListLabel: UIStackView!
@@ -33,15 +21,29 @@ class FavoriteScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+       delegateTableView()
+        
+    }
+    private func delegateTableView(){
         favoriteTableView.dataSource = self
         favoriteTableView.delegate = self
-        
-        // Do any additional setup after loading the view.
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        
+   
+    @IBAction func deleteBtnClick(_ sender: Any) {
+        //tüm favori listesini silme işlemi
+        let alertController = UIAlertController(title: "To Delete", message: "Are you sure you want to delete all data?", preferredStyle: .alert)
+            
+            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+            alertController.addAction(cancelAction)
+            
+            let deleteAction = UIAlertAction(title: "Delete", style: .destructive) { (_) in
+                self.deleteAllData()
+            }
+            alertController.addAction(deleteAction)
+            
+            present(alertController, animated: true, completion: nil)
     }
+   
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -163,10 +165,6 @@ extension FavoriteScreenViewController: UITableViewDelegate,UITableViewDataSourc
         let context = appDelegate.persistentContainer.viewContext
         
         
-        
-        // let favoriteObject : NSManagedObject = favoriteList[indexPath.row]
-        //let favoriteObject = favoriteList[indexPath.row] as? NSManagedObject
-        
         guard let favObj = objectList[indexPath.row] as? NSManagedObject else { return }
         
         // Core Data'dan öğeyi silme işlemi
@@ -188,17 +186,8 @@ extension FavoriteScreenViewController: UITableViewDelegate,UITableViewDataSourc
         } catch {
             print("Core Data'da hata oluştu: \(error)")
         }
-        
-        
-        
-        //if let favorite = favoriteObject as? FavoriteNewsModel {
-        
-        // }
+    
     }
-    
-    
-    
-    
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         if editingStyle == .delete {
@@ -209,18 +198,14 @@ extension FavoriteScreenViewController: UITableViewDelegate,UITableViewDataSourc
     
     
     func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        // Silme işlemi için UIContextualAction oluştur
+       
         let deleteAction = UIContextualAction(style: .destructive, title: "Delete") { [weak self] (action, view, completionHandler) in
-            // Silme işlemini burada gerçekleştirin
+            
             self?.deleteItem(at: indexPath)
             completionHandler(true)
         }
         
-        
-        // Silme arka plan rengini turuncu olarak ayarla
         deleteAction.backgroundColor = .systemOrange
-        
-        // Silme işlemini içeren UISwipeActionsConfiguration oluştur ve döndür
         let configuration = UISwipeActionsConfiguration(actions: [deleteAction])
         return configuration
     }

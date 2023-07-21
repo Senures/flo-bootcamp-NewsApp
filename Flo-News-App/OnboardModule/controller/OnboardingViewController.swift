@@ -8,7 +8,7 @@
 import UIKit
 
 class OnboardingViewController: UIViewController {
-
+    
     @IBOutlet weak var nextBtn: UIButton!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var collectionView: UICollectionView!
@@ -24,7 +24,7 @@ class OnboardingViewController: UIViewController {
             pageControl.currentPage = currentPage
             if currentPage == slides.count - 1{
                 nextBtn.setTitle("Get Started", for:.normal)
-               
+                
             } else {
                 nextBtn.setTitle("Next", for:.normal)
             }
@@ -33,27 +33,30 @@ class OnboardingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        nextBtn.backgroundColor = hexStringToUIColor(hex: "#FFA500")
-       
-        //nextBtn.tintColor = .white
-        nextBtn.applyCornerRadius(10)
         
+        setUI()
+        collectionViewSet()
+        slides = [
+            OnboardingModel(title: "Read news with only one app, News App", descriptiom: "Read the latest news smoothly and quickly at the same time", image:img1!),
+            OnboardingModel(title: "Read news with only one app, News App", descriptiom: "Read the latest news smoothly and quickly at the same time", image:img2!),
+            OnboardingModel(title: "Read news with only one app, News App", descriptiom: "Read the latest news smoothly and quickly at the same time", image:img3!),
+        ]
+    }
+    private func setUI(){
+        nextBtn.backgroundColor = hexStringToUIColor(hex: "#FFA500")
+        nextBtn.applyCornerRadius(10)
+    }
+    
+    private func collectionViewSet(){
         collectionView.delegate = self
         collectionView.dataSource = self
-        // Do any additional setup after loading the view.
         
-        slides = [
-        OnboardingModel(title: "Read news with only one app, News App", descriptiom: "Read the latest news smoothly and quickly at the same time", image:img1!),
-        OnboardingModel(title: "Read news with only one app, News App", descriptiom: "Read the latest news smoothly and quickly at the same time", image:img2!),
-        OnboardingModel(title: "Read news with only one app, News App", descriptiom: "Read the latest news smoothly and quickly at the same time", image:img3!),
-        ]
     }
     
     
-
     @IBAction func nextBtnClick(_ sender: Any) {
         if currentPage == slides.count - 1 {
-          //burda login olma sayfasına gidicek
+            //burda login olma sayfasına gidicek
             UserDefaults.standard.set(showBoard, forKey: "showOnboard")
             //onboard gösterilcek mi kısmı
             performSegue(withIdentifier: "goLogin", sender:nil)
@@ -66,13 +69,13 @@ class OnboardingViewController: UIViewController {
             print("STORYBOARD NEXT")
         }
     }
-   
-
+    
+    
 }
 
 
 extension OnboardingViewController : UICollectionViewDelegate, UICollectionViewDataSource ,
-UICollectionViewDelegateFlowLayout{
+                                     UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return slides.count
     }
@@ -92,7 +95,7 @@ UICollectionViewDelegateFlowLayout{
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let width = scrollView.frame.width
         currentPage = Int(scrollView.contentOffset.x/width)
-        //pageControl.currentPage = currentPage
+        
     }
     
 }

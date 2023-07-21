@@ -26,59 +26,39 @@ class SearchScreenViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Label'i oluşturun
-        
+
         label.text = "No search results found"
         label.textColor = UIColor.orange
         label.textAlignment = .center
         label.font = UIFont.systemFont(ofSize: 22)
         label.sizeToFit()
         
-        // Label'in boyutunu ve konumunu belirleyin
+        
         let screenWidth = view.frame.width
         let screenHeight = view.frame.height
-        // Label'in konumunu belirleyin (ekranın ortasında)
         label.center = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
         label.isHidden = true
-        // Label'i görünüme ekleyin
         view.addSubview(label)
-        
         
         categoryCv.delegate = self
         categoryCv.dataSource = self
         
-        
         searchTableView.delegate = self
         searchTableView.dataSource = self
         searchTableView.reloadData()
-        
-        
-        
-        // searchController.searchResultsUpdater = self
-        //   searchBar.searchTextField.backgroundColor = .black
-        searchBar.barTintColor = UIColor.black// Arka plan rengi
-        //searchBar.heightAnchor.constraint(equalToConstant: 120).isActive = true
-        searchBar.searchTextField.backgroundColor = UIColor.white // Metin alanının arka plan rengi
-        searchBar.searchTextField.textColor = UIColor.black // Metin rengi
-        searchBar.searchTextField.tintColor = UIColor.black // V
+        searchBar.barTintColor = UIColor.black
+        searchBar.searchTextField.backgroundColor = UIColor.white
+        searchBar.searchTextField.textColor = UIColor.black
+        searchBar.searchTextField.tintColor = UIColor.black
         searchController.obscuresBackgroundDuringPresentation = false
         searchController.searchBar.placeholder = "Search"
         searchBar.delegate = self
-        
-        
-        
-        
+      
         let layout = UICollectionViewFlowLayout()
-        
         layout.scrollDirection = .horizontal
         
         categoryCv.reloadData()
-        // Do any additional setup after loading the view.
-        
-        
     }
-    
     
     
     override func viewWillAppear(_ animated: Bool) {
@@ -238,8 +218,7 @@ extension SearchScreenViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension SearchScreenViewController : UISearchBarDelegate  {
-    
-    // Arama işlemini gerçekleştiren fonksiyonu çağırın
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // Arama işlemini gerçekleştirin
         if let searchText = searchBar.text, !searchText.isEmpty {
@@ -250,12 +229,12 @@ extension SearchScreenViewController : UISearchBarDelegate  {
                 self.searchTableView.reloadData()
             }
         }
-        searchBar.resignFirstResponder() // Klavyeyi kapat
+        searchBar.resignFirstResponder()
     }
     
-    // Arama işlemini gerçekleştiren fonksiyonu çağırın
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-       
+        
         if let searchText = searchBar.text, !searchText.isEmpty {
             showActivityIndicator()
             ApiClient.apiClient.search(params: searchText) { response in
@@ -279,9 +258,6 @@ extension SearchScreenViewController : UISearchBarDelegate  {
     
     func searchArticles(with searchText: String) -> [Article] {
         
-        
-        
-        // Arama metnine göre filtreleme işlemini gerçekleştirin ve sonuçları döndürün
         if searchText.isEmpty {
             label.isHidden = true
             searchTableView.isHidden = false
@@ -289,7 +265,7 @@ extension SearchScreenViewController : UISearchBarDelegate  {
             return searchList!
         } else {
             let filteredArticles = searchList?.filter { $0.title!.contains(searchText) }
-           
+            
             return filteredArticles ?? []
         }
         
@@ -300,23 +276,12 @@ extension SearchScreenViewController : UISearchBarDelegate  {
         if let searchIconImageView = searchBar.searchTextField.leftView as? UIImageView {
             searchIconImageView.tintColor = hexStringToUIColor(hex: "#FFa500")
         }
-        // Search bar'a tıklandığında border rengini ayarla
-        // searchBar.layer.borderColor = UIColor.red.cgColor
-        // searchBar.layer.borderWidth = 1.0
-    }
-    
-    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-        // Search bar'dan başka bir yere tıklandığında border'ı kaldır
-        // searchBar.layer.borderWidth = 0.0
+        
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        // İşlem yapmak istediğiniz kodu buraya yazın
-        print("Cancel butonuna tıklandı!")
-        
         // Arama çubuğunu temizlemek için
         searchBar.text = ""
-        
         // Klavyeyi kapatmak için
         searchBar.resignFirstResponder()
         

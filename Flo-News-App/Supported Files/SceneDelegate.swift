@@ -18,9 +18,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil) // Storyboard dosyanızın adını burada belirtin
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         var initialViewController: UIViewController
-        // UserDefaults üzerinde "showOnboard" anahtarını kontrol edin
+      
         var showBoard = UserDefaults.standard.bool(forKey: "showOnboard")
         if showBoard == true {
             print("evet gösterildi : \(showBoard)")
