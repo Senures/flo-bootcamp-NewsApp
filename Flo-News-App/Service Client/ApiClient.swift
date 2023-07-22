@@ -36,7 +36,7 @@ class ApiClient{
     }
     
     
-    //TREND NEWWSS APİİ CEKİLDİGİ YER
+    //TREND NEWS APİ CEKİLDİGİ YER
     func fetchTrendNews(succesData: @escaping (NewsResponseModel) -> Void){
         
         let baseUrl = String(format: "%@%@%@",Constants.baseURL,"/top-headlines?country=us&category=business&apiKey=",Constants.apiKey)
@@ -48,7 +48,7 @@ class ApiClient{
             do{
                 let topHeadlinesModel = try? JSONDecoder().decode(NewsResponseModel.self, from: data)
                 succesData(topHeadlinesModel!)
-                print(topHeadlinesModel?.articles)
+              
             } catch {
                 
                 print("catch bloğu")
@@ -65,13 +65,13 @@ class ApiClient{
         let baseUrl = String(format: "%@%@%@",Constants.baseURL,"/everything?domains=wsj.com&apiKey=",Constants.apiKey)
         AF.request(baseUrl, method:.get, encoding:JSONEncoding.default, headers: nil, interceptor: nil).response{
             (responseData) in
-            
+
             guard let data = responseData.data else { return }
             
             do{
                 let topHeadlinesModel = try? JSONDecoder().decode(NewsResponseModel.self, from: data)
                 succesData(topHeadlinesModel!)
-                print(topHeadlinesModel?.articles)
+                
             } catch {
                 
                 print("catch bloğu")

@@ -18,7 +18,8 @@ protocol LoginViewModelProtocol {
 final class LoginViewModel : LoginViewModelProtocol {
  
     weak  var view: LoginScreenViewControllerProtocol?
-    var isShowPassword : Bool = false
+    var isShowPassword : Bool = true
+    
 
     func viewDidLoad() {
         view?.setupUI()

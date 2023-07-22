@@ -43,7 +43,6 @@ class DetailScreenViewController: UIViewController {
     //MARK: Kaydetme butonuna basınca ikon degismesi
    private func changeFavButton(){
         if isFav == true {
-            
             saveNewsBtn.setImage(UIImage(systemName: "bookmark.fill"), for: .normal)
         }else{
             saveNewsBtn.setImage(UIImage(systemName: "bookmark"), for: .normal)
@@ -106,10 +105,8 @@ class DetailScreenViewController: UIViewController {
             try context.save()
             isFav = true
             changeFavButton()
-            print(news)
-            print("SUCCESS")
         }catch {
-            print("ERROR")
+            print("SET FAV ERROR")
         }
     }
     
@@ -154,7 +151,7 @@ class DetailScreenViewController: UIViewController {
             let formattedDate = dateFormatter.string(from: date)
             print(formattedDate)
             dateStringFormat = formattedDate
-            print("gelen tarihhhhh : \(dateStringFormat)")
+            publishDate.text = dateStringFormat
         } else {
             print("Invalid date format.")
         }

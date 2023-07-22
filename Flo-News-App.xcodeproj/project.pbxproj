@@ -350,14 +350,14 @@
 			path = cell;
 			sourceTree = "<group>";
 		};
-		0F991E362A47484100FCEDC3 /* HomeModule */ = {
+		0F991E362A47484100FCEDC3 /* Home */ = {
 			isa = PBXGroup;
 			children = (
 				0FDD183C2A6AFD430098E1D8 /* View */,
 				0FDD183B2A6AFD3B0098E1D8 /* VM */,
 				0F901D702A48C60D00322287 /* cell */,
 			);
-			path = HomeModule;
+			path = Home;
 			sourceTree = "<group>";
 		};
 		0FADBA432A399D400059B6DA /* Extensions */ = {
@@ -401,7 +401,7 @@
 				0F901D6C2A48911200322287 /* Profile */,
 				0F901D682A488FFF00322287 /* Favorite */,
 				0F901D652A486DCD00322287 /* Search */,
-				0F991E362A47484100FCEDC3 /* HomeModule */,
+				0F991E362A47484100FCEDC3 /* Home */,
 				0F5478F62A4618A700251EE4 /* GoogleService-Info.plist */,
 				0F5478D92A44606F00251EE4 /* Register */,
 				0F1C3BCC2A41EF33001B9C0A /* Login */,

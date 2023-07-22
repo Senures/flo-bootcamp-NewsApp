@@ -10,26 +10,26 @@ import Firebase
 
 protocol LoginScreenViewControllerProtocol : AnyObject {
     func setupUI()
-    func showPassword()
+   
 }
 
 final class LoginScreenViewController : UIViewController, LoginScreenViewControllerProtocol {
-
+   
     private lazy var  viewModel = LoginViewModel()
-    
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var forgotPasBtn: UIButton!
     @IBOutlet weak var loginBtn: UIButton!
-    @IBOutlet weak var showPassBtn: UIButton!
     @IBOutlet weak var passwordField: UITextField!
- 
     
+   let iconView = UIButton(frame: CGRect(x: 0, y: 5, width: 20, height: 20))
+   
     let closeEye = UIImage(named: "close")
     
     override func viewDidLoad() {
         super.viewDidLoad()
         viewModel.view = self
         viewModel.viewDidLoad()
+        setRightIcon()
         
     }
     override func viewWillDisappear(_ animated: Bool) {
@@ -58,28 +58,33 @@ final class LoginScreenViewController : UIViewController, LoginScreenViewControl
     @IBAction func forgotPassClick(_ sender: Any) {
         performSegue(withIdentifier: "resetPassword", sender:nil)
     }
-    // butona basınca şifre gösterilmesi
-    @IBAction func showPassBtn(_ sender: Any) {
-        showPassword()
-        
-    }
     
-    //şifre gösterilmesi
-    func showPassword(){
+    //password gösterilmesi butonu
+    
+    func setRightIcon(){
+        iconView.setImage(UIImage(named: "close"), for: UIControl.State.normal)
+        iconView.contentMode = .center
+        iconView.tintColor = .black
+        let iconContainerView: UIView = UIView(frame:
+                                                CGRect(x: 20, y: 0, width: 35, height: 35))
+        iconContainerView.contentMode = .center
+        iconContainerView.addSubview(iconView)
+        passwordField.rightView = iconContainerView
+        passwordField.rightViewMode = .always
+        
+        iconView.addTarget(self, action: #selector(changePassHidden), for: .touchDown)
+    }
+    //butona basınca şifre gösterilmesi
+    @objc func changePassHidden(){
         viewModel.isShowPassword = !viewModel.isShowPassword
-        print("\(viewModel.isShowPassword)")
+        passwordField.isSecureTextEntry = viewModel.isShowPassword
         if viewModel.isShowPassword {
-            passwordField.isSecureTextEntry = false
-            showPassBtn.setImage(closeEye, for: .normal)
-            
-        } else {
-            passwordField.isSecureTextEntry = true
-            showPassBtn.setImage(UIImage(named: "eye"), for: .normal)
-            
+            iconView.setImage(UIImage(named: "close"), for: UIControl.State.normal)
+        }else{
+            iconView.setImage(UIImage(named: "eye"), for: UIControl.State.normal)
         }
     }
- 
-    
+  
    func validateTextFields(){
         if let email = emailField.text {
             if email.isEmpty {

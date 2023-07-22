@@ -71,7 +71,7 @@ class ProfileScreenViewController: UIViewController {
             updatedData["username"] = self.userName.text
             updatedData["phoneNumber"] = self.phoneNumber.text
             
-            // Veriyi güncelle
+            // Veriyi güncelleme işlemi
             usersRef.document(document.documentID).setData(updatedData) { [self] error in
                 if let error = error {
                     print("Veri güncellenirken hata oluştu: \(error.localizedDescription)")
@@ -96,7 +96,7 @@ class ProfileScreenViewController: UIViewController {
         let okAction = UIAlertAction(title: "OK", style: .default, handler: nil)
         alert.addAction(okAction)
         
-        // Geçerli görünümün üzerine alerti ekleyelim
+        // Show Alert
         if let viewController = UIApplication.shared.keyWindow?.rootViewController {
             viewController.present(alert, animated: true, completion: nil)
         }
@@ -158,8 +158,6 @@ class ProfileScreenViewController: UIViewController {
                 print("Belge yok")
                 return
             }
-            
-            // Döngü kullanarak sorgu sonucu elde edilen belgeleri alıyoruz
             for document in documents {
                 let data = document.data()
                 

@@ -136,7 +136,7 @@ extension HomeScreenViewController: UICollectionViewDelegate, UICollectionViewDa
         if collectionView == topHeadCollectionView {
             return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
         } else if collectionView == trendCollectionView {
-            return CGSize(width: 180, height: collectionView.frame.height)
+            return CGSize(width: 280, height: 200)
         } else {
             return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
         }

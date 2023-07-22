@@ -72,7 +72,7 @@ class FavoriteScreenViewController: UIViewController {
                     return FavoriteNewsModel(source: source_name, author: news_author, title: news_title, description: description, url: news_url, urlToImage: img, publishedAt: id, content: news_content)
                 }
                 
-                return nil // Nil değeri dönerek favori haber modelini atla
+                return nil 
             }
             
             // TableView'ı güncelle
@@ -84,7 +84,7 @@ class FavoriteScreenViewController: UIViewController {
     }
     
     //liste bos ise cöp kutusu ve liste bos yazısı gözükmesi
-    func updateView() {
+    private func updateView() {
         if objectList.isEmpty || favoriteList.isEmpty {
             favoriteTableView.isHidden = true
             emptyListLabel.isHidden = false
@@ -96,7 +96,7 @@ class FavoriteScreenViewController: UIViewController {
         }
     }
     //core datadaki tüm verileri silme
-    func deleteAllData() {
+    private func deleteAllData() {
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
         let context = appDelegate.persistentContainer.viewContext
 
@@ -144,12 +144,11 @@ extension FavoriteScreenViewController: UITableViewDelegate,UITableViewDataSourc
         if segue.identifier == "goDetail" {
             
             let dvc = segue.destination as? DetailScreenViewController
-            let a  = sender as?  FavoriteNewsModel
-            var b  = Article(source: Source(id: "",name: ""), author: a?.author,title:  a?.title, description: a?.description, url: a?.url, urlToImage: a?.urlToImage, publishedAt: a?.publishedAt,content: a?.content )
+            let response  = sender as?  FavoriteNewsModel
+            var result  = Article(source: Source(id: "",name: ""), author: response?.author,title:  response?.title, description: response?.description, url: response?.url, urlToImage: response?.urlToImage, publishedAt: response?.publishedAt,content: response?.content )
           
-            dvc?.newsResponseModel = b
-            
-            print(a?.title)
+            dvc?.newsResponseModel = result
+        
             print(dvc?.newsResponseModel?.title)
         }
     }

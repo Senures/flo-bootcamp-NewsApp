@@ -158,7 +158,7 @@ extension SearchScreenViewController :  UICollectionViewDelegate , UICollectionV
     
     //tıkladındıgında o indekste hangisi var bu bir yatayda kayan collectionview
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("*******************")
+        
         guard let cell = collectionView.cellForItem(at: indexPath) as? CategoryViewCell else {
             return
         }
@@ -169,8 +169,8 @@ extension SearchScreenViewController :  UICollectionViewDelegate , UICollectionV
         cell.contentView.layer.borderWidth = 1.0 // Kenarlık kalınlığını belirleyin
         cell.contentView.layer.borderColor = UIColor.systemOrange.cgColor
         cell.contentView.layer.cornerRadius = 10
-        //cell.contentView.backgroundColor = .white
-        print(categoryList[indexPath.row])
+        
+        
         //business general gibi yerlere basınca calısan api
         showActivityIndicator()
         ApiClient.apiClient.search(params:categoryList[indexPath.row]) { response in
@@ -183,11 +183,10 @@ extension SearchScreenViewController :  UICollectionViewDelegate , UICollectionV
         //tıklanılmayan hücrelerin görünümü
         for visibleCell in collectionView.visibleCells {
             if let otherCell = visibleCell as? CategoryViewCell, otherCell != cell {
-                //otherCell.categoryName.textColor = .red
                 otherCell.categoryName.font = UIFont.systemFont(ofSize: 15)
                 otherCell.contentView.layer.borderWidth = 0.0 // Kenarlık kalınlığını sıfıra ayarlayın
                 otherCell.categoryName.textColor = .white
-                // otherCell.contentView.backgroundColor = .white
+                
                 
             }
         }
@@ -241,13 +240,13 @@ extension SearchScreenViewController : UISearchBarDelegate  {
                 self.searchList = response.articles
                 self.hideActivityIndicator()
                 if self.searchList?.count == 0 {
-                    print("SEARCH LIST NULLL")
+                    
                     self.searchTableView.isHidden = true
                     self.label.isHidden = false
                 }else{
                     self.searchTableView.isHidden = false
                     self.label.isHidden = true
-                    print("SEARCH LIST NULL DEGIL")
+                    
                 }
                 self.searchTableView.reloadData()
             }
