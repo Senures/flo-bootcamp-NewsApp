@@ -24,7 +24,6 @@
 		0F5478F72A4618A700251EE4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0F5478F62A4618A700251EE4 /* GoogleService-Info.plist */; };
 		0F5478F92A46277900251EE4 /* RegisterScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F5478F82A46277900251EE4 /* RegisterScreenViewController.swift */; };
 		0F67A8BD2A4A1B9C00EC01B7 /* DetailScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F67A8BC2A4A1B9C00EC01B7 /* DetailScreenViewController.swift */; };
-		0F8E4ECA2A600B7C0081CD15 /* SkeletonView in Frameworks */ = {isa = PBXBuildFile; productRef = 0F8E4EC92A600B7C0081CD15 /* SkeletonView */; };
 		0F8E917A2A693531001ACA0E /* ForgotPasswordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8E91792A693531001ACA0E /* ForgotPasswordViewModel.swift */; };
 		0F8FA86B2A670E7200D92919 /* LoadingPageExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F8FA86A2A670E7200D92919 /* LoadingPageExtension.swift */; };
 		0F901D672A486DE400322287 /* SearchScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0F901D662A486DE400322287 /* SearchScreenViewController.swift */; };
@@ -137,7 +136,6 @@
 				0F1C3BD12A41F083001B9C0A /* IQKeyboardManagerSwift in Frameworks */,
 				0F92E7692A48D8D300D21D26 /* Kingfisher in Frameworks */,
 				0F5478E52A46050900251EE4 /* FirebaseCrashlytics in Frameworks */,
-				0F8E4ECA2A600B7C0081CD15 /* SkeletonView in Frameworks */,
 				0F5478EF2A46050900251EE4 /* FirebaseFunctions in Frameworks */,
 				0F5478E32A46050900251EE4 /* FirebaseAuthCombine-Community in Frameworks */,
 				0F5478F52A46050900251EE4 /* FirebaseStorage in Frameworks */,
@@ -506,7 +504,6 @@
 				0F5478F42A46050900251EE4 /* FirebaseStorage */,
 				0F92E7652A48D8BE00D21D26 /* Alamofire */,
 				0F92E7682A48D8D300D21D26 /* Kingfisher */,
-				0F8E4EC92A600B7C0081CD15 /* SkeletonView */,
 			);
 			productName = "Flo-News-App";
 			productReference = 0FC333952A360265004A9CB6 /* Flo-News-App.app */;
@@ -1101,11 +1098,6 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 0F5478DF2A46050900251EE4 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseStorage;
-		};
-		0F8E4EC92A600B7C0081CD15 /* SkeletonView */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 0F8E4EC82A600B7C0081CD15 /* XCRemoteSwiftPackageReference "SkeletonView" */;
-			productName = SkeletonView;
 		};
 		0F92E7652A48D8BE00D21D26 /* Alamofire */ = {
 			isa = XCSwiftPackageProductDependency;

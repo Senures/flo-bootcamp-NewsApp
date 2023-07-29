@@ -64,6 +64,7 @@ class SearchScreenViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         getSearhList()
         
+        
     }
     
     func getSearhList(){

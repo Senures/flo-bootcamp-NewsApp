@@ -113,7 +113,7 @@ class DetailScreenViewController: UIViewController {
     private func getFavNews(){
         image.kf.setImage(with: URL(string: newsResponseModel?.urlToImage ??  Constants.emptyUrlImage), placeholder:UIImage(named:"image"))
         
-        //veri cagırmak eğer haber kaydedilmisse bookmark boyalı olsun
+        
         let appDelegate = UIApplication.shared.delegate as! AppDelegate
         let context = appDelegate.persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: "FavoriteList")
