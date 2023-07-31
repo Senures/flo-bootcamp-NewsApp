@@ -18,18 +18,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
         guard let _ = (scene as? UIWindowScene) else { return }
         
-        let storyboard = UIStoryboard(name: "Main", bundle: nil) // Storyboard dosyanızın adını burada belirtin
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
         var initialViewController: UIViewController
-        // UserDefaults üzerinde "showOnboard" anahtarını kontrol edin
+      
         var showBoard = UserDefaults.standard.bool(forKey: "showOnboard")
         if showBoard == true {
             print("evet gösterildi : \(showBoard)")
             if Auth.auth().currentUser != nil {
+                print("CURRENT USER NIL DEGIL")
+                print(Auth.auth().currentUser?.email)
                 //kullanıcı girmişse daha önce
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let tabBarController = storyboard.instantiateViewController(withIdentifier: "tabVc")
                 window?.rootViewController = tabBarController
             } else {
+                print("CURRENT USER NIL")
                 let storyboard = UIStoryboard(name: "Main", bundle: nil)
                 let loginController = storyboard.instantiateViewController(withIdentifier: "LoginScreenViewController") //sayfanın storyboard idsi
                 window?.rootViewController = loginController

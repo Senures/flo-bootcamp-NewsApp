@@ -8,7 +8,7 @@
 import UIKit
 
 class SearchTableViewCell: UITableViewCell {
-
+    
     @IBOutlet weak var lbl: UILabel!
     
     @IBOutlet weak var img: UIImageView! {
@@ -21,6 +21,7 @@ class SearchTableViewCell: UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
      
     }
 

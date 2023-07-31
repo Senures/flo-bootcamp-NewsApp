@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SkeletonView
 
 class SearchScreenViewController: UIViewController {
     
@@ -19,54 +20,64 @@ class SearchScreenViewController: UIViewController {
     private var filteredArticles: [Article] = []
     
     var searching:Bool?
+    let label = UILabel()
+    
     let categoryList = ["Business","Entertainment","General","Health","Science","Sports","Technology"]
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        label.text = "No search results found"
+        label.textColor = UIColor.orange
+        label.textAlignment = .center
+        label.font = UIFont.systemFont(ofSize: 22)
+        label.sizeToFit()
         
+        
+        let screenWidth = view.frame.width
+        let screenHeight = view.frame.height
+        label.center = CGPoint(x: screenWidth / 2, y: screenHeight / 2)
+        label.isHidden = true
+        view.addSubview(label)
         
         categoryCv.delegate = self
         categoryCv.dataSource = self
         
-        
         searchTableView.delegate = self
         searchTableView.dataSource = self
         searchTableView.reloadData()
-        
-     
-            
-           // searchController.searchResultsUpdater = self
-     //   searchBar.searchTextField.backgroundColor = .black
-        searchBar.barTintColor = UIColor.black// Arka plan rengi
-      //searchBar.heightAnchor.constraint(equalToConstant: 120).isActive = true
-        searchBar.searchTextField.backgroundColor = UIColor.white // Metin alanının arka plan rengi
-        searchBar.searchTextField.textColor = UIColor.black // Metin rengi
-        searchBar.searchTextField.tintColor = UIColor.black // V
-            searchController.obscuresBackgroundDuringPresentation = false
-            searchController.searchBar.placeholder = "Search"
-            searchBar.delegate = self
-        
-        
-        
-        
+        searchBar.barTintColor = UIColor.black
+        searchBar.searchTextField.backgroundColor = UIColor.white
+        searchBar.searchTextField.textColor = UIColor.black
+        searchBar.searchTextField.tintColor = UIColor.black
+        searchController.obscuresBackgroundDuringPresentation = false
+        searchController.searchBar.placeholder = "Search"
+        searchBar.delegate = self
+      
         let layout = UICollectionViewFlowLayout()
-        
         layout.scrollDirection = .horizontal
         
         categoryCv.reloadData()
-        // Do any additional setup after loading the view.
     }
     
+    
     override func viewWillAppear(_ animated: Bool) {
-       getSearhList()
+        getSearhList()
+        
+        
     }
     
     func getSearhList(){
-        ApiClient.apiClient.search(params:"general") { response in
-                     self.searchList = response.articles
-                     self.searchTableView.reloadData()
-                     
-                 }
+        showActivityIndicator()
+        
+        ApiClient.apiClient.search(params:"business") { response in
+            
+            self.searchList = response.articles
+            self.hideActivityIndicator()
+            self.searchTableView.reloadData()
+            
+        }
+        
     }
     
 }
@@ -76,24 +87,24 @@ extension SearchScreenViewController : UITableViewDelegate,UITableViewDataSource
         if (searching ?? false){
             return filteredArticles.count
         } else {
-            return searchList?.count ?? 2
+            return searchList?.count ?? 0
         }
-       
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier:"searchCell", for: indexPath) as! SearchTableViewCell
-
+        
         if !(searching ??  false){
             cell.lbl.text = searchList?[indexPath.row].title
-            cell.img.kf.setImage(with: URL(string:searchList?[indexPath.row].urlToImage ?? ""), placeholder:UIImage(named:"image"))
+            cell.img.kf.setImage(with: URL(string:searchList?[indexPath.row].urlToImage ??  Constants.emptyUrlImage), placeholder:UIImage(named:"image"))
             cell.dscriptionLbl.text = searchList?[indexPath.row].description
         } else {
             cell.lbl.text = filteredArticles[indexPath.row].title
             cell.img.kf.setImage(with: URL(string:filteredArticles[indexPath.row].urlToImage ?? ""), placeholder:UIImage(named:"image"))
             cell.dscriptionLbl.text = filteredArticles[indexPath.row].description
         }
-      
+        
         
         return cell
         
@@ -129,53 +140,62 @@ extension SearchScreenViewController :  UICollectionViewDelegate , UICollectionV
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = categoryCv.dequeueReusableCell(withReuseIdentifier: "categoryCell", for: indexPath) as! CategoryViewCell
         
-        cell.categoryName.text = categoryList[indexPath.row]
-        // cell.contentView.layer.cornerRadius = 5
-        cell.categoryName.font = UIFont.systemFont(ofSize: 16)
-        cell.categoryName.textColor = .white
-        cell.contentView.layer.masksToBounds = true
+        if indexPath.row == 0 {
+            cell.categoryName.text = categoryList[0]
+            cell.categoryName.textColor = .systemOrange
+            cell.categoryName.font = UIFont.systemFont(ofSize: 16)
+            cell.contentView.layer.borderWidth = 1.0 // Kenarlık kalınlığını belirleyin
+            cell.contentView.layer.borderColor = UIColor.systemOrange.cgColor
+            cell.contentView.layer.cornerRadius = 10
+        }else{
+            cell.categoryName.text = categoryList[indexPath.row]
+            cell.categoryName.font = UIFont.systemFont(ofSize: 16)
+            cell.categoryName.textColor = .white
+            cell.contentView.layer.masksToBounds = true
+        }
         
         return cell
     }
     
     //tıkladındıgında o indekste hangisi var bu bir yatayda kayan collectionview
-       func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-           print("*******************")
-           guard let cell = collectionView.cellForItem(at: indexPath) as? CategoryViewCell else {
-               return
-           }
-           
-          //tıklanılan hücrelerin görünümü
-          cell.categoryName.textColor = .orange
-           cell.categoryName.font = UIFont.systemFont(ofSize: 16)
-          cell.contentView.layer.borderWidth = 1.0 // Kenarlık kalınlığını belirleyin
-           cell.contentView.layer.borderColor = UIColor.orange.cgColor
-           cell.contentView.layer.cornerRadius = 10
-           //cell.contentView.backgroundColor = .white
-           print(categoryList[indexPath.row])
-           //business general gibi yerlere basınca calısan api
-                    ApiClient.apiClient.search(params:categoryList[indexPath.row]) { response in
-                        self.searchList = response.articles
-                        self.searchTableView.reloadData()
-                        
-                    }
-                         
-           //tıklanılmayan hücrelerin görünümü
-           for visibleCell in collectionView.visibleCells {
-               if let otherCell = visibleCell as? CategoryViewCell, otherCell != cell {
-                 //otherCell.categoryName.textColor = .red
-                   otherCell.categoryName.font = UIFont.systemFont(ofSize: 15)
-                   otherCell.contentView.layer.borderWidth = 0.0 // Kenarlık kalınlığını sıfıra ayarlayın
-                  otherCell.categoryName.textColor = .white
-                  // otherCell.contentView.backgroundColor = .white
-                   
-               }
-           }
-           
-          
-       }
-       
-       
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        guard let cell = collectionView.cellForItem(at: indexPath) as? CategoryViewCell else {
+            return
+        }
+        
+        //tıklanılan hücrelerin görünümü
+        cell.categoryName.textColor = .systemOrange
+        cell.categoryName.font = UIFont.systemFont(ofSize: 16)
+        cell.contentView.layer.borderWidth = 1.0 // Kenarlık kalınlığını belirleyin
+        cell.contentView.layer.borderColor = UIColor.systemOrange.cgColor
+        cell.contentView.layer.cornerRadius = 10
+        
+        
+        //business general gibi yerlere basınca calısan api
+        showActivityIndicator()
+        ApiClient.apiClient.search(params:categoryList[indexPath.row]) { response in
+            self.searchList = response.articles
+            self.hideActivityIndicator()
+            self.searchTableView.reloadData()
+            
+        }
+        
+        //tıklanılmayan hücrelerin görünümü
+        for visibleCell in collectionView.visibleCells {
+            if let otherCell = visibleCell as? CategoryViewCell, otherCell != cell {
+                otherCell.categoryName.font = UIFont.systemFont(ofSize: 15)
+                otherCell.contentView.layer.borderWidth = 0.0 // Kenarlık kalınlığını sıfıra ayarlayın
+                otherCell.categoryName.textColor = .white
+                
+                
+            }
+        }
+        
+        
+    }
+    
+    
     
     
 }
@@ -198,35 +218,55 @@ extension SearchScreenViewController: UICollectionViewDelegateFlowLayout {
 }
 
 extension SearchScreenViewController : UISearchBarDelegate  {
-    
-    // Arama işlemini gerçekleştiren fonksiyonu çağırın
+
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         // Arama işlemini gerçekleştirin
         if let searchText = searchBar.text, !searchText.isEmpty {
+            showActivityIndicator()
             ApiClient.apiClient.search(params: searchText) { response in
                 self.searchList = response.articles
+                self.hideActivityIndicator()
                 self.searchTableView.reloadData()
             }
         }
-        searchBar.resignFirstResponder() // Klavyeyi kapat
+        searchBar.resignFirstResponder()
     }
     
-    // Arama işlemini gerçekleştiren fonksiyonu çağırın
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        print("semaaa:\(searchText)")
+        
+        if let searchText = searchBar.text, !searchText.isEmpty {
+            showActivityIndicator()
+            ApiClient.apiClient.search(params: searchText) { response in
+                self.searchList = response.articles
+                self.hideActivityIndicator()
+                if self.searchList?.count == 0 {
+                    
+                    self.searchTableView.isHidden = true
+                    self.label.isHidden = false
+                }else{
+                    self.searchTableView.isHidden = false
+                    self.label.isHidden = true
+                    
+                }
+                self.searchTableView.reloadData()
+            }
+        }
         filteredArticles = searchArticles(with: searchText)
         searchTableView.reloadData()
     }
     
     func searchArticles(with searchText: String) -> [Article] {
-        // Arama metnine göre filtreleme işlemini gerçekleştirin ve sonuçları döndürün
+        
         if searchText.isEmpty {
+            label.isHidden = true
+            searchTableView.isHidden = false
             getSearhList()
             return searchList!
         } else {
-            let filteredArticles = searchList!.filter { $0.title!.contains(searchText) }
-            print("eda:\(searchText)")
-            return filteredArticles
+            let filteredArticles = searchList?.filter { $0.title!.contains(searchText) }
+            
+            return filteredArticles ?? []
         }
         
     }
@@ -235,24 +275,13 @@ extension SearchScreenViewController : UISearchBarDelegate  {
         
         if let searchIconImageView = searchBar.searchTextField.leftView as? UIImageView {
             searchIconImageView.tintColor = hexStringToUIColor(hex: "#FFa500")
-            }
-            // Search bar'a tıklandığında border rengini ayarla
-           // searchBar.layer.borderColor = UIColor.red.cgColor
-           // searchBar.layer.borderWidth = 1.0
         }
         
-        func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
-            // Search bar'dan başka bir yere tıklandığında border'ı kaldır
-           // searchBar.layer.borderWidth = 0.0
-        }
+    }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        // İşlem yapmak istediğiniz kodu buraya yazın
-        print("Cancel butonuna tıklandı!")
-        
         // Arama çubuğunu temizlemek için
         searchBar.text = ""
-        
         // Klavyeyi kapatmak için
         searchBar.resignFirstResponder()
         
